@@ -1,0 +1,29 @@
+<md-card>
+  <md-toolbar color="primary">
+    <span>Albums</span>
+    <button (click)="loadAlbums()" md-icon-button>
+      <md-icon>refresh</md-icon>
+    </button>
+  </md-toolbar>
+  <md-card-content>
+    <p>This page shows the albums!</p>
+    <md-card *ngFor="let album of albums">
+      <md-card-title>{{album.sequence}}. {{album.album}}</md-card-title>
+      <md-card-content>
+        <md-grid-list cols="2" rowHeight="220px">
+          <md-grid-tile >
+            <img src="http://localhost:8080/images/{{album.image}}" width="200px"/>
+          </md-grid-tile>
+          <md-grid-tile>
+            <ul>
+              <li>{{album.artist}}</li>
+              <li>{{album.year}}</li>
+              <li>{{album.label}}</li>
+            </ul>
+          </md-grid-tile>
+        </md-grid-list>
+        <div [innerHTML]="album.information"></div>
+      </md-card-content>
+    </md-card>
+  </md-card-content>
+</md-card>

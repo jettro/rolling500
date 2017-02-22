@@ -1,0 +1,19 @@
+<md-sidenav-container>
+  <md-sidenav #sidenav mode="side" class="app-sidenav">
+    Sidenav
+  </md-sidenav>
+  <md-toolbar>
+    <button (click)="sidenav.toggle()" md-icon-button>
+      <md-icon class="md-24">menu</md-icon>
+    </button>
+    <div>&nbsp;{{title}}&nbsp;</div>
+    <div>
+      <a [routerLink]="['/albums']" md-raised-button>Albums</a>
+      <a [routerLink]="['/about']" md-raised-button>About</a>
+    </div>
+  </md-toolbar>
+
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</md-sidenav-container>
