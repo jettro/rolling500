@@ -1,11 +1,15 @@
 <md-card>
   <md-toolbar color="primary">
     <span>Albums</span>
-    <button (click)="loadAlbums()" md-icon-button>
+    <button (click)="reloadAlbums()" md-icon-button>
       <md-icon>refresh</md-icon>
     </button>
   </md-toolbar>
-  <md-card-content>
+  <md-card-content infinite-scroll
+                   [infiniteScrollDistance]="2"
+                   [infiniteScrollUpDistance]="1.5"
+                   [infiniteScrollThrottle]="500"
+                   (scrolled)="onScrollDown()">
     <p>This page shows the albums!</p>
     <md-card *ngFor="let album of albums">
       <md-card-title>{{album.sequence}}. {{album.album}}</md-card-title>

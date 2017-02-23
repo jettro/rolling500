@@ -14,6 +14,7 @@ import {routing} from "./app.routing";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import 'hammerjs';
 import {AlbumService} from "./services/album.service";
+import {InfiniteScrollModule} from "angular2-infinite-scroll";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {AlbumService} from "./services/album.service";
     MdToolbarModule,
     MdSidenavModule,
     MdIconModule,
-    MdButtonModule
+    MdButtonModule,
+    InfiniteScrollModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService],
   bootstrap: [AppComponent]

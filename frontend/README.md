@@ -33,3 +33,4 @@ ng g component about
 npm install --save @angular/material
 npm install --save hammerjs
 
+https://www.npmjs.com/package/angular2-infinite-scroll

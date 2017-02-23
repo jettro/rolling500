@@ -10,7 +10,9 @@ import {Album} from "../services/album";
 })
 export class AlbumsComponent implements OnInit {
 
-  albums: Album[];
+  albums: Array<Album> = [];
+
+  page: number = 1;
 
   constructor(private albumService: AlbumService) {
   }
@@ -19,12 +21,25 @@ export class AlbumsComponent implements OnInit {
     this.loadAlbums();
   }
 
+  reloadAlbums(): void {
+    this.page = 1;
+    this.loadAlbums()
+  }
+
   loadAlbums(): void {
-    this.albumService.findAllAlbums().subscribe(
-      data => this.albums = data,
+    this.albumService.findAllAlbums(this.page).subscribe(
+      (data) => {
+        data.forEach(album => this.albums.push(album));
+      },
       err => console.log("Cannot obtain albums", err.status, err.url),
-      () => console.log('Done')
+      () => console.log('Done, size of data: ' + this.albums.length)
     );
   }
 
+
+  onScrollDown(): void {
+    console.log('scrolled down!!')
+    this.page += 1;
+    this.loadAlbums();
+  }
 }
