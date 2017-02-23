@@ -27,7 +27,7 @@ export class AlbumsComponent implements OnInit {
   }
 
   loadAlbums(): void {
-    this.albumService.findAllAlbums(this.page).subscribe(
+    this.albumService.findAlbums(this.page).subscribe(
       (data) => {
         data.forEach(album => this.albums.push(album));
       },

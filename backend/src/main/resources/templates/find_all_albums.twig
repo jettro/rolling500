@@ -1,0 +1,14 @@
+{
+    "sort": [
+        {
+            "sequence": {
+                "order": "asc"
+            }
+        }
+    ],
+    "from": {{ default(from, 0) }},
+    "size": {{ default(size, 1000) }},
+    "_source" : {
+        "excludes": ["information"]
+    }
+}

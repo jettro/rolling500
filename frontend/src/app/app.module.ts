@@ -15,12 +15,15 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import 'hammerjs';
 import {AlbumService} from "./services/album.service";
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
+import { RatingComponent } from './rating/rating.component';
+import {RatingService} from "./services/rating.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     AlbumsComponent,
-    AboutComponent
+    AboutComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,7 @@ import {InfiniteScrollModule} from "angular2-infinite-scroll";
     MdButtonModule,
     InfiniteScrollModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService, RatingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

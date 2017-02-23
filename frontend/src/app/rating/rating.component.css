@@ -1,0 +1,12 @@
+.thumbs_up {
+  color: green;
+}
+.thumbs_down {
+  color: red;
+}
+.thumbs_neutral {
+  color: yellow;
+}
+.no_choice {
+  color: silver;
+}

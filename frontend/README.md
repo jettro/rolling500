@@ -30,7 +30,16 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Some of the steps
 ng g component albums
 ng g component about
+ng g component rating
+
+ng g service album
+ng g service rating
+
 npm install --save @angular/material
 npm install --save hammerjs
 
 https://www.npmjs.com/package/angular2-infinite-scroll
+
+Thumbnails maken van plaatjes met imagemagick:
+mogrify -resize 50x50 *.png
+

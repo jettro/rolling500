@@ -1,0 +1,33 @@
+<h3>User id</h3>
+<p>{{user_id}}</p>
+
+
+<md-list>
+  <md-list-item *ngFor="let album of albums">
+    <md-icon md-list-icon
+             [ngClass]="{'thumbs_up':ratings.ratings[album.sequence-1]==3,
+                'no_choice':ratings.ratings[album.sequence-1]!=3}"
+             (click)="chooseEmotion(3,album.sequence)"
+      >mood</md-icon>
+    <md-icon md-list-icon
+             [ngClass]="{'thumbs_neutral':ratings.ratings[album.sequence-1]==2,
+                'no_choice':ratings.ratings[album.sequence-1]!=2}"
+             (click)="chooseEmotion(2,album.sequence)"
+      >sentiment_neutral</md-icon>
+    <md-icon md-list-icon
+             [ngClass]="{'thumbs_down':ratings.ratings[album.sequence-1]==1,
+                'no_choice':ratings.ratings[album.sequence-1]!=1}"
+             (click)="chooseEmotion(1,album.sequence)"
+      >mood_bad</md-icon>
+    <md-icon md-list-icon
+             [ngClass]="{'no_choice':ratings.ratings[album.sequence-1]!=0}"
+             (click)="chooseEmotion(0,album.sequence)"
+      >check_box_outline_blank</md-icon>
+    <img md-list-avatar src="http://localhost:8080/images/thumbnails/{{album.image}}" width="60px"/>
+    <h3 md-line> {{album.album}} </h3>
+    <p md-line>
+      <span> {{album.artist}} </span>
+      <span>{{ratings.ratings[album.sequence-1]}}</span>
+    </p>
+  </md-list-item>
+</md-list>

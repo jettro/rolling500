@@ -26,19 +26,29 @@ public class AlbumsController {
     }
 
     @GetMapping
-    public List<Album> findAll(Long page) {
+    public List<Album> find(Long page) {
+        return doQueryAlbums("find_albums.twig",page, SIZE);
+    }
+
+    @GetMapping("/all")
+    public List<Album> findAll() {
+        return doQueryAlbums("find_all_albums.twig",1L, 501);
+    }
+
+    private List<Album> doQueryAlbums(String templateName, Long page, Integer size) {
         Map<String, Object> params = new HashMap<>();
         if (page != null) {
-            params.put("from", (page - 1) * SIZE);
-            params.put("size", SIZE);
+            params.put("from", (page - 1) * size);
+            params.put("size", size);
         }
         SearchByTemplateRequest request = SearchByTemplateRequest.create()
                 .setIndexName("rolling500")
-                .setTemplateName("find_albums.twig")
+                .setTemplateName(templateName)
                 .setAddId(false)
                 .setModelParams(params)
                 .setTypeReference(new AlbumEntityTypeReference());
 
         return searchService.queryByTemplate(request);
     }
+
 }

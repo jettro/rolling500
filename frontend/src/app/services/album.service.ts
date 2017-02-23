@@ -9,10 +9,15 @@ export class AlbumService {
   constructor(private http: Http) {
   }
 
-  findAllAlbums(page: number): Observable<Array<Album>> {
-    console.log(page);
+  findAlbums(page: number): Observable<Array<Album>> {
     return this.http
       .get(`http://localhost:8080/api/albums?page=${page}`)
+      .map((r: Response) => r.json() as Array<Album>);
+  }
+
+  findAllAlbums(): Observable<Array<Album>> {
+    return this.http
+      .get(`http://localhost:8080/api/albums/all`)
       .map((r: Response) => r.json() as Array<Album>);
   }
 
