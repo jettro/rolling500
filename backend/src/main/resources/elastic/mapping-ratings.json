@@ -1,0 +1,12 @@
+{
+  "rating": {
+    "properties": {
+      "user_id": {
+        "type": "keyword"
+      },
+      "ratings": {
+        "type": "keyword"
+      }
+    }
+  }
+}

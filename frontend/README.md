@@ -31,9 +31,11 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ng g component albums
 ng g component about
 ng g component rating
+ng g component home
 
 ng g service album
 ng g service rating
+ng g service dashboard
 
 npm install --save @angular/material
 npm install --save hammerjs
@@ -43,3 +45,7 @@ https://www.npmjs.com/package/angular2-infinite-scroll
 Thumbnails maken van plaatjes met imagemagick:
 mogrify -resize 50x50 *.png
 
+For the charting
+
+npm install @swimlane/ngx-charts --save
+npm install d3@4.4.0 --save

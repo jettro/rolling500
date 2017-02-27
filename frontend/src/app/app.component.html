@@ -1,6 +1,6 @@
 <md-sidenav-container>
   <md-sidenav #sidenav mode="side" class="app-sidenav">
-    Sidenav
+    <a [routerLink]="['/dashboard']">Dashboard</a>
   </md-sidenav>
   <md-toolbar>
     <button (click)="sidenav.toggle()" md-icon-button>
@@ -8,6 +8,7 @@
     </button>
     <div>&nbsp;{{title}}&nbsp;</div>
     <div>
+      <a [routerLink]="['']" md-raised-button>Home</a>
       <a [routerLink]="['/albums']" md-raised-button>Albums</a>
       <a [routerLink]="['/rating']" md-raised-button>Rating</a>
       <a [routerLink]="['/about']" md-raised-button>About</a>

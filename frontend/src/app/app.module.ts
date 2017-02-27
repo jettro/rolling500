@@ -17,13 +17,19 @@ import {AlbumService} from "./services/album.service";
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
 import { RatingComponent } from './rating/rating.component';
 import {RatingService} from "./services/rating.service";
+import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {DashboardService} from "./services/dashboard.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     AlbumsComponent,
     AboutComponent,
-    RatingComponent
+    RatingComponent,
+    HomeComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +42,10 @@ import {RatingService} from "./services/rating.service";
     MdSidenavModule,
     MdIconModule,
     MdButtonModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgxChartsModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService, RatingService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService, RatingService, DashboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
