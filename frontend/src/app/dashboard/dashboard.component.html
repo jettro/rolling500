@@ -1,14 +1,13 @@
-  <ngx-charts-bar-vertical
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="single"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)">
-  </ngx-charts-bar-vertical>
+<md-grid-list cols="12" rowHeight="150px">
+  <md-grid-tile colspan="6" rowspan="3">
+    <app-ratingsanalytics [ratingsData]="ratingsData"></app-ratingsanalytics>
+  </md-grid-tile>
+  <md-grid-tile colspan="2" rowspan="2">
+    <app-numusersanalytics [numUsers]="numUsers"></app-numusersanalytics>
+  </md-grid-tile>
+</md-grid-list>
+
+
+
+
+

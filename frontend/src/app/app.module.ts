@@ -21,6 +21,8 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {DashboardService} from "./services/dashboard.service";
+import { RatingsanalyticsComponent } from './dashboard/ratingsanalytics/ratingsanalytics.component';
+import { NumusersanalyticsComponent } from './dashboard/numusersanalytics/numusersanalytics.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import {DashboardService} from "./services/dashboard.service";
     AboutComponent,
     RatingComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    RatingsanalyticsComponent,
+    NumusersanalyticsComponent
   ],
   imports: [
     BrowserModule,

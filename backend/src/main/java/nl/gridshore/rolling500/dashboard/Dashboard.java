@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Dashboard {
     private List<KeyValuePair<Long>> ratings;
+    private long numUsers;
 
     public List<KeyValuePair<Long>> getRatings() {
         return ratings;
@@ -14,5 +15,13 @@ public class Dashboard {
 
     public void setRatings(List<KeyValuePair<Long>> ratings) {
         this.ratings = ratings;
+    }
+
+    public long getNumUsers() {
+        return numUsers;
+    }
+
+    public void setNumUsers(long numUsers) {
+        this.numUsers = numUsers;
     }
 }

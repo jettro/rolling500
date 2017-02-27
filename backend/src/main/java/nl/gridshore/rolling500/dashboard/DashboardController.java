@@ -2,6 +2,7 @@ package nl.gridshore.rolling500.dashboard;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.luminis.elastic.search.SearchService;
 import org.apache.http.entity.StringEntity;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
@@ -24,18 +25,25 @@ public class DashboardController {
 
     private final RestClient restClient;
     private final ObjectMapper jacksonObjectMapper;
+    private final SearchService searchService;
 
     @Autowired
-    public DashboardController(RestClient restClient, ObjectMapper jacksonObjectMapper) {
+    public DashboardController(RestClient restClient, ObjectMapper jacksonObjectMapper, SearchService searchService) {
         this.restClient = restClient;
         this.jacksonObjectMapper = jacksonObjectMapper;
+        this.searchService = searchService;
     }
 
     @GetMapping
     public Dashboard obtainDashboard() {
         Dashboard dashboard = new Dashboard();
         dashboard.setRatings(obtainRatings());
+        dashboard.setNumUsers(obtainNumUsers());
         return dashboard;
+    }
+
+    private long obtainNumUsers() {
+        return searchService.countByIndex("ratings");
     }
 
     private List<KeyValuePair<Long>> obtainRatings() {

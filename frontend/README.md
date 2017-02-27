@@ -32,10 +32,12 @@ ng g component albums
 ng g component about
 ng g component rating
 ng g component home
+ng g component dashboard
+ng g component dashboard/ratingsanalytics
 
-ng g service album
-ng g service rating
-ng g service dashboard
+ng g service services/album
+ng g service services/rating
+ng g service services/dashboard
 
 npm install --save @angular/material
 npm install --save hammerjs
@@ -49,3 +51,4 @@ For the charting
 
 npm install @swimlane/ngx-charts --save
 npm install d3@4.4.0 --save
+
