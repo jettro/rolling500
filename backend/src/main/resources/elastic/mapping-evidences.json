@@ -1,0 +1,18 @@
+{
+  "rating": {
+    "properties": {
+      "user_id": {
+        "type": "keyword"
+      },
+      "album_id": {
+        "type": "long"
+      },
+      "emotion": {
+        "type": "long"
+      },
+      "evidence_name": {
+        "type": "keyword"
+      }
+    }
+  }
+}

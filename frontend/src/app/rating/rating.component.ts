@@ -6,6 +6,8 @@ import {Album} from "../services/album";
 import {MdDialog, MdDialogRef, MdDialogConfig} from "@angular/material";
 import {DialogAlbumDetailComponent} from "./dialog-albumdetail.component";
 import {WindowRefService} from "../services/windowref.service";
+import {EvidenceService} from "../services/evidence.service";
+import {Evidence, EmotionEvidence} from "../services/evidence";
 
 @Component({
   selector: 'app-rating',
@@ -22,6 +24,7 @@ export class RatingComponent implements OnInit {
 
   constructor(private ratingService: RatingService,
               private albumService: AlbumService,
+              private evidenceService: EvidenceService,
               private windowRefService: WindowRefService,
               public dialog: MdDialog,
               public viewContainerRef: ViewContainerRef
@@ -64,6 +67,16 @@ export class RatingComponent implements OnInit {
       err => console.log("Cannot store ratings", err.status, err.url),
       () => console.log('Ratings are stored')
     );
+
+    let evidence = new EmotionEvidence();
+    evidence.album_id = album;
+    evidence.evidence_name = "emotion_chosen";
+    evidence.user_id = this.user_id;
+    evidence.emation = emotion;
+    this.evidenceService.storeEmotionEvidence(evidence).subscribe(
+      data => {},
+      err => console.log("Cannot send emotion evidence", err.status, err.url)
+    );
   }
 
   showAlbumDetails(album: Album) {
@@ -83,10 +96,30 @@ export class RatingComponent implements OnInit {
       },
       err => console.log("Cannot obtain album with id ", err.status, err.url)
     );
+
+    let evidence = new Evidence();
+    evidence.album_id = album.id;
+    evidence.evidence_name = "album_details_requested";
+    evidence.user_id = this.user_id;
+    this.evidenceService.storeEvidence(evidence).subscribe(
+      data => {},
+      err => console.log("Cannot send detail evidence", err.status, err.url)
+    );
+
   }
 
   openYoutubeSearch(album: Album) {
     let url = `https://www.youtube.com/results?search_query=${album.album + " " + album.artist}`;
+
+    let evidence = new Evidence();
+    evidence.album_id = album.id;
+    evidence.evidence_name = "youtube_requested";
+    evidence.user_id = this.user_id;
+    this.evidenceService.storeEvidence(evidence).subscribe(
+      data => {},
+      err => console.log("Cannot send youtube evidence", err.status, err.url)
+    );
+
     this.windowRefService.getNativeWindow().open(url)
   }
 
