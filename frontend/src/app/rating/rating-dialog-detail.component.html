@@ -1,0 +1,26 @@
+<div>
+  <md-card>
+    <md-card-title>{{album.sequence}}. {{album.album}}</md-card-title>
+    <md-card-content>
+      <md-grid-list cols="2">
+        <md-grid-tile >
+          <img src="http://localhost:8080/images/{{album.image}}" width="200px"/>
+        </md-grid-tile>
+        <md-grid-tile>
+          <md-list>
+            <md-list-item>
+              {{album.artist}}
+            </md-list-item>
+            <md-list-item>
+              {{album.year}}
+            </md-list-item>
+            <md-list-item>
+              {{album.label}}
+            </md-list-item>
+          </md-list>
+        </md-grid-tile>
+      </md-grid-list>
+      <div [innerHTML]="album.information"></div>
+    </md-card-content>
+  </md-card>
+</div>

@@ -23,6 +23,8 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {DashboardService} from "./services/dashboard.service";
 import { RatingsanalyticsComponent } from './dashboard/ratingsanalytics/ratingsanalytics.component';
 import { NumusersanalyticsComponent } from './dashboard/numusersanalytics/numusersanalytics.component';
+import {DialogAlbumDetailComponent} from './rating/dialog-albumdetail.component';
+import {WindowRefService} from "./services/windowref.service";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { NumusersanalyticsComponent } from './dashboard/numusersanalytics/numuse
     HomeComponent,
     DashboardComponent,
     RatingsanalyticsComponent,
-    NumusersanalyticsComponent
+    NumusersanalyticsComponent,
+    DialogAlbumDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { NumusersanalyticsComponent } from './dashboard/numusersanalytics/numuse
     InfiniteScrollModule,
     NgxChartsModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService, RatingService, DashboardService],
-  bootstrap: [AppComponent]
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService, RatingService, DashboardService, WindowRefService],
+  bootstrap: [AppComponent],
+  entryComponents: [DialogAlbumDetailComponent]
 })
 export class AppModule { }
