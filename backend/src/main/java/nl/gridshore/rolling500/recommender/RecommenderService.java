@@ -20,7 +20,6 @@ import org.grouplens.lenskit.knn.user.UserVectorSimilarity;
 import org.grouplens.lenskit.scored.ScoredId;
 import org.grouplens.lenskit.transform.normalize.BaselineSubtractingUserVectorNormalizer;
 import org.grouplens.lenskit.transform.normalize.UserVectorNormalizer;
-import org.grouplens.lenskit.transform.threshold.AbsoluteThreshold;
 import org.grouplens.lenskit.transform.threshold.RealThreshold;
 import org.grouplens.lenskit.transform.threshold.Threshold;
 import org.grouplens.lenskit.vectors.similarity.CosineVectorSimilarity;
@@ -39,14 +38,14 @@ public class RecommenderService {
 
     private final RatingsService ratingsService;
 
-    private Map<String,Long> userIdMapping = new HashMap<>();
+    private Map<String, Long> userIdMapping = new HashMap<>();
 
     @Autowired
     public RecommenderService(RatingsService ratingsService) {
         this.ratingsService = ratingsService;
     }
 
-    public List<Long> recommend(String userId) {
+    public List<RecommendedItem> recommend(String userId) {
 
         try {
             LenskitRecommender recommender = LenskitRecommender.build(configureUserSimilarity());
@@ -56,14 +55,10 @@ public class RecommenderService {
             List<ScoredId> recommended = irec.recommend(userIdMapping.get(userId), 5);
 
             return recommended.stream()
-                    .map(scoredId -> {
-                        // Let op dat we dus aan prediction doen, een score van 1 is dus een do not like en een score van 3 is een like.
-                        System.out.println(scoredId.getId() + " : " + scoredId.getScore());
-                        return scoredId.getId();
-                    })
+                    .map(scoredId -> new RecommendedItem(scoredId.getId(), scoredId.getScore()))
                     .collect(Collectors.toList());
         } catch (RecommenderBuildException e) {
-            throw new RuntimeException(e);
+            throw new RecommendationException("Error while trying to find recommendations", e);
         }
     }
 
@@ -93,12 +88,12 @@ public class RecommenderService {
     }
 
     private long userId = 1;
+
     private long userId() {
         return userId++;
     }
 
     private List<MutableRating> obtainRatings() {
-
         // For now we obtain the ratings on each question
         List<Rating> foundRatings = ratingsService.listAllRatings();
 
@@ -109,42 +104,12 @@ public class RecommenderService {
 
             long userId = (this.userIdMapping.containsKey(userIdString)) ? this.userIdMapping.get(userIdString) : userId();
             this.userIdMapping.put(userIdString, userId);
-            for(int i = 0; i < rating.getRatings().length; i++) {
+            for (int i = 0; i < rating.getRatings().length; i++) {
                 if (rating.getRatings()[i] > 0) {
                     ratings.add(createRating(i, rating.getRatings()[i], userId));
                 }
             }
         });
-
-//        ratings.add(createRating(1, 1, 1));
-//        ratings.add(createRating(2, 3, 1));
-//        ratings.add(createRating(3, 3, 1));
-//        ratings.add(createRating(4, 1, 1));
-//        ratings.add(createRating(5, 1, 1));
-//
-//        ratings.add(createRating(1, 3, 2));
-//        ratings.add(createRating(2, 1, 2));
-//        ratings.add(createRating(3, 1, 2));
-//        ratings.add(createRating(4, 3, 2));
-//        ratings.add(createRating(5, 3, 2));
-//
-//        ratings.add(createRating(1, 1, 3));
-//        ratings.add(createRating(2, 3, 3));
-//        ratings.add(createRating(3,1,3));
-//        ratings.add(createRating(4, 1, 3));
-//        ratings.add(createRating(5,3,3));
-
-//        ratings.add(createRating(1,3,2));
-//        ratings.add(createRating(2,1,2));
-//        ratings.add(createRating(3, 1, 4));
-//        ratings.add(createRating(4, 3, 4));
-//        ratings.add(createRating(5, 2, 4));
-//
-//        ratings.add(createRating(1, 2, 5));
-//        ratings.add(createRating(2, 3, 5));
-//        ratings.add(createRating(3, 3, 5));
-//        ratings.add(createRating(4, 1, 5));
-//        ratings.add(createRating(5, 1, 5));
 
         return ratings;
     }

@@ -6,7 +6,6 @@ import eu.luminis.elastic.document.QueryByIdNotFoundException;
 import eu.luminis.elastic.document.QueryByIdRequest;
 import eu.luminis.elastic.search.SearchByTemplateRequest;
 import eu.luminis.elastic.search.SearchService;
-import nl.gridshore.rolling500.albums.AlbumEntityTypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

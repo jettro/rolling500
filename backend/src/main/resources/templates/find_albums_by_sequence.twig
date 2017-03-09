@@ -1,0 +1,23 @@
+{
+    "query": {
+        "terms": {
+            "sequence": [
+                {% for id in ids %}
+                    {{ id }},
+                {% endfor  %}
+                999999
+            ]
+        }
+    },
+    "sort": [
+        {
+            "sequence": {
+                "order": "asc"
+            }
+        }
+    ],
+    "size": {{ default(size, 10) }},
+    "_source" : {
+        "excludes": ["information"]
+    }
+}
