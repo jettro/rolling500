@@ -1,13 +1,30 @@
-<md-card>
-  <md-card-title>Introduction</md-card-title>
-  <md-card-content>
-    <p>
-      Welcome to the Rolling 500 app. This is an application that is an experiment to recommend albums out of the <a
-      href="http://www.rollingstone.com/music/lists/500-greatest-albums-of-all-time-20120531">Rolling Stone Top 500</a>.
-      All data is extracted from the link. You can use this app to rate the albums and if we have enough ratings we hope
-      to give you proper recommendations. So please help out and give a few albums a rating.
-    </p>
-  </md-card-content>
-</md-card>
-
-
+<div>
+  <md-card>
+    <md-card-title>Introduction</md-card-title>
+    <md-card-content>
+      <p>
+        Welcome to the Rolling 500 app. This is an application that is an experiment to recommend albums out of the <a
+        href="http://www.rollingstone.com/music/lists/500-greatest-albums-of-all-time-20120531">Rolling Stone Top
+        500</a>.
+        All data is extracted from the link. You can use this app to rate the albums and if we have enough ratings we
+        hope
+        to give you proper recommendations. So please help out and give a few albums a rating.
+      </p>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-title>Recommendations</md-card-title>
+    <md-card-content>
+      <md-list>
+        <md-list-item *ngFor="let recommendation of recommendations">
+          <img md-list-avatar src="http://localhost:8080/images/thumbnails/{{recommendation.image}}" width="60px"/>
+          <h3 md-line> {{recommendation.album}}</h3>
+          <p md-line>
+            <span> {{recommendation.artist}} </span>
+            <span> {{recommendation.score}}</span>
+          </p>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</div>

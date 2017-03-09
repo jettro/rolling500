@@ -26,6 +26,7 @@ import { NumusersanalyticsComponent } from './dashboard/numusersanalytics/numuse
 import {DialogAlbumDetailComponent} from './rating/dialog-albumdetail.component';
 import {WindowRefService} from "./services/windowref.service";
 import {EvidenceService} from "./services/evidence.service";
+import {RecommenderService} from "./services/recommender.service";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import {EvidenceService} from "./services/evidence.service";
     InfiniteScrollModule,
     NgxChartsModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService, RatingService, DashboardService, WindowRefService, EvidenceService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService, RatingService, DashboardService, WindowRefService, EvidenceService, RecommenderService],
   bootstrap: [AppComponent],
   entryComponents: [DialogAlbumDetailComponent]
 })

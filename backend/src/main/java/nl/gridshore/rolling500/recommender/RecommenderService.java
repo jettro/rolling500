@@ -36,6 +36,9 @@ import java.util.stream.Collectors;
 @Service
 public class RecommenderService {
 
+    public static final int NUM_RECOMMENDATIONS = 5;
+    public static final double THRESHOLD_SIMILARITY = 0;
+
     private final RatingsService ratingsService;
 
     private Map<String, Long> userIdMapping = new HashMap<>();
@@ -52,7 +55,7 @@ public class RecommenderService {
 
             ItemRecommender irec = recommender.getItemRecommender();
 
-            List<ScoredId> recommended = irec.recommend(userIdMapping.get(userId), 5);
+            List<ScoredId> recommended = irec.recommend(userIdMapping.get(userId), NUM_RECOMMENDATIONS);
 
             return recommended.stream()
                     .map(scoredId -> new RecommendedItem(scoredId.getId(), scoredId.getScore()))
@@ -70,7 +73,7 @@ public class RecommenderService {
         config.bind(BaselineScorer.class, ItemScorer.class)
                 .to(UserMeanItemScorer.class);
 
-        config.bind(UserSimilarityThreshold.class, Threshold.class).to(new RealThreshold(0.5));
+        config.bind(UserSimilarityThreshold.class, Threshold.class).to(new RealThreshold(THRESHOLD_SIMILARITY));
 
         config.bind(UserMeanBaseline.class, ItemScorer.class)
                 .to(ItemMeanRatingItemScorer.class);

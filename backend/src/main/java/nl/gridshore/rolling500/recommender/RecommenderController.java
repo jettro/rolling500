@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/recommender")
 public class RecommenderController {
+    public static final double SCORE_THRESHOLD = 0.5;
     private final RecommenderService recommenderService;
     private final AlbumService albumService;
 
@@ -30,7 +31,7 @@ public class RecommenderController {
     public List<Album> obtainRecommendations(@PathVariable String id) {
         List<RecommendedItem> recommend = this.recommenderService.recommend(id);
         List<Long> ids = recommend.stream()
-                .filter(recommendedItem -> recommendedItem.getScore() > 1.5)
+                .filter(recommendedItem -> recommendedItem.getScore() > SCORE_THRESHOLD)
                 .map(item -> item.getAlbumId()).collect(Collectors.toList());
 
         List<Album> recommendedAlbums = albumService.findAlbumBySequenceId(ids);
