@@ -14,7 +14,7 @@
   </md-card>
   <md-card>
     <md-card-title>Recommendations</md-card-title>
-    <md-card-content>
+    <md-card-content *ngIf="recommendations.length > 0">
       <md-list>
         <md-list-item *ngFor="let recommendation of recommendations">
           <img md-list-avatar src="http://localhost:8080/images/thumbnails/{{recommendation.image}}" width="60px"/>
@@ -25,6 +25,9 @@
           </p>
         </md-list-item>
       </md-list>
+    </md-card-content>
+    <md-card-content *ngIf="recommendations.length == 0">
+      <p>Please rate more items, with these ratings we cannot find similar users.</p>
     </md-card-content>
   </md-card>
 </div>

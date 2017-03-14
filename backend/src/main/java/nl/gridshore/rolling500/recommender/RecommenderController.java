@@ -32,7 +32,8 @@ public class RecommenderController {
         List<RecommendedItem> recommend = this.recommenderService.recommend(id);
         List<Long> ids = recommend.stream()
                 .filter(recommendedItem -> recommendedItem.getScore() > SCORE_THRESHOLD)
-                .map(item -> item.getAlbumId()).collect(Collectors.toList());
+                .map(RecommendedItem::getAlbumId)
+                .collect(Collectors.toList());
 
         List<Album> recommendedAlbums = albumService.findAlbumBySequenceId(ids);
 
