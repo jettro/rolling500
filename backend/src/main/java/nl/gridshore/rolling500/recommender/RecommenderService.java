@@ -54,7 +54,9 @@ public class RecommenderService {
             LenskitRecommender recommender = LenskitRecommender.build(configureUserSimilarity());
 
             ItemRecommender irec = recommender.getItemRecommender();
-
+            if (null == userIdMapping.get(userId)) {
+                return new ArrayList<>();
+            }
             List<ScoredId> recommended = irec.recommend(userIdMapping.get(userId), NUM_RECOMMENDATIONS);
 
             return recommended.stream()

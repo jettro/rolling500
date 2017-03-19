@@ -8,6 +8,7 @@ import {DialogAlbumDetailComponent} from "./dialog-albumdetail.component";
 import {WindowRefService} from "../services/windowref.service";
 import {EvidenceService} from "../services/evidence.service";
 import {Evidence, EmotionEvidence} from "../services/evidence";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-rating',
@@ -21,6 +22,7 @@ export class RatingComponent implements OnInit {
   ratings: Rating;
   albums: Array<Album> = [];
   dialogRef: MdDialogRef<DialogAlbumDetailComponent>;
+  backend: string = "/";
 
   constructor(private ratingService: RatingService,
               private albumService: AlbumService,
@@ -47,6 +49,7 @@ export class RatingComponent implements OnInit {
       err => console.log("Cannot obtain ratings", err.status, err.url),
       () => console.log('Done, size of data: ' + this.ratings.ratings.length)
     );
+    this.backend = environment.backend;
   }
 
   loadAllAlbums() {

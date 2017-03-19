@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {RecommenderService} from "../services/recommender.service";
 import {Recommendation} from "../services/recommendation";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-home',
@@ -9,12 +10,14 @@ import {Recommendation} from "../services/recommendation";
   providers: [RecommenderService]
 })
 export class HomeComponent implements OnInit {
+  backend: string = "/";
   user_id: string;
   recommendations: Array<Recommendation> = [];
 
   constructor(private recommenderService: RecommenderService) { }
 
   ngOnInit() {
+    this.backend = environment.backend;
     this.user_id = localStorage.getItem("user_id");
 
     if (this.user_id) {

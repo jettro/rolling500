@@ -17,7 +17,7 @@
     <md-card-content *ngIf="recommendations.length > 0">
       <md-list>
         <md-list-item *ngFor="let recommendation of recommendations">
-          <img md-list-avatar src="http://localhost:8080/images/thumbnails/{{recommendation.image}}" width="60px"/>
+          <img md-list-avatar src="{{backend}}images/thumbnails/{{recommendation.image}}" width="60px"/>
           <h3 md-line> {{recommendation.album}}</h3>
           <p md-line>
             <span> {{recommendation.artist}} </span>

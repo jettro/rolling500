@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AlbumService} from "../services/album.service";
 import {Album} from "../services/album";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-albums',
@@ -9,7 +10,7 @@ import {Album} from "../services/album";
   providers: [AlbumService]
 })
 export class AlbumsComponent implements OnInit {
-
+  backend: string = "/";
   albums: Array<Album> = [];
 
   page: number = 1;
@@ -18,6 +19,7 @@ export class AlbumsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.backend = environment.backend;
     this.loadAlbums();
   }
 
