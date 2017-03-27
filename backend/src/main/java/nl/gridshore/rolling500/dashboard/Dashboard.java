@@ -8,6 +8,7 @@ import java.util.List;
 public class Dashboard {
     private List<KeyValuePair<Long>> ratings;
     private long numUsers;
+    private List<KeyValuePair<Long>> evidences;
 
     public List<KeyValuePair<Long>> getRatings() {
         return ratings;
@@ -23,5 +24,13 @@ public class Dashboard {
 
     public void setNumUsers(long numUsers) {
         this.numUsers = numUsers;
+    }
+
+    public List<KeyValuePair<Long>> getEvidences() {
+        return evidences;
+    }
+
+    public void setEvidences(List<KeyValuePair<Long>> evidences) {
+        this.evidences = evidences;
     }
 }

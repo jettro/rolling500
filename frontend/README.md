@@ -34,6 +34,7 @@ ng g component rating
 ng g component home
 ng g component dashboard
 ng g component dashboard/ratingsanalytics
+ng g component dashboard/evidencesanalytics
 
 ng g service services/album
 ng g service services/rating

@@ -8,6 +8,7 @@ import {DashboardService} from "../services/dashboard.service";
 })
 export class DashboardComponent implements OnInit {
   ratingsData: any[] = [];
+  evidencesData: any[] = [];
   numUsers: any[] = [];
 
   constructor(private dashboardService: DashboardService) {
@@ -31,6 +32,13 @@ export class DashboardComponent implements OnInit {
         data.ratings.forEach(ratingValue => {
           const item = {name: ratingValue.key, value: ratingValue.value};
           this.ratingsData = [...this.ratingsData, item];
+        });
+
+        // evidences
+        this.evidencesData = [];
+        data.evidences.forEach(evidenceValue => {
+          const item = {name: evidenceValue.key, value: evidenceValue.value};
+          this.evidencesData = [...this.evidencesData, item];
         });
       },
       err => console.log("Cannot obtain albums", err.status, err.url)

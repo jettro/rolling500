@@ -53,3 +53,16 @@ PUT evidences
   }
 }
 ```
+
+Snapshotting
+
+```
+curl -XPUT 'http://localhost:19200/_snapshot/my_backup' -d '{
+    "type": "fs",
+    "settings": {
+        "location": "/opt/backups/my_backup",
+        "compress": true
+    }
+}'
+```
+

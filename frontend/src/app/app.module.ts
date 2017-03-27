@@ -27,6 +27,7 @@ import {DialogAlbumDetailComponent} from './rating/dialog-albumdetail.component'
 import {WindowRefService} from "./services/windowref.service";
 import {EvidenceService} from "./services/evidence.service";
 import {RecommenderService} from "./services/recommender.service";
+import { EvidencesanalyticsComponent } from './dashboard/evidencesanalytics/evidencesanalytics.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {RecommenderService} from "./services/recommender.service";
     DashboardComponent,
     RatingsanalyticsComponent,
     NumusersanalyticsComponent,
-    DialogAlbumDetailComponent
+    DialogAlbumDetailComponent,
+    EvidencesanalyticsComponent
   ],
   imports: [
     BrowserModule,
