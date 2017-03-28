@@ -14,7 +14,7 @@ import {environment} from "../../environments/environment";
   selector: 'app-rating',
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.css'],
-  providers: [RatingService, AlbumService, WindowRefService]
+  providers: [RatingService, AlbumService, WindowRefService, EvidenceService]
 })
 export class RatingComponent implements OnInit {
 
