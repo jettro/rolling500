@@ -28,6 +28,8 @@ import {WindowRefService} from "./services/windowref.service";
 import {EvidenceService} from "./services/evidence.service";
 import {RecommenderService} from "./services/recommender.service";
 import { EvidencesanalyticsComponent } from './dashboard/evidencesanalytics/evidencesanalytics.component';
+import { SearchComponent } from './search/search.component';
+import {SearchService} from "./services/search.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { EvidencesanalyticsComponent } from './dashboard/evidencesanalytics/evid
     RatingsanalyticsComponent,
     NumusersanalyticsComponent,
     DialogAlbumDetailComponent,
-    EvidencesanalyticsComponent
+    EvidencesanalyticsComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,7 @@ import { EvidencesanalyticsComponent } from './dashboard/evidencesanalytics/evid
     InfiniteScrollModule,
     NgxChartsModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService, RatingService, DashboardService, WindowRefService, EvidenceService, RecommenderService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AlbumService, RatingService, DashboardService, WindowRefService, EvidenceService, RecommenderService, SearchService],
   bootstrap: [AppComponent],
   entryComponents: [DialogAlbumDetailComponent]
 })

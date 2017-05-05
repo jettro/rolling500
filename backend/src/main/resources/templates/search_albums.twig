@@ -1,0 +1,52 @@
+{
+    "from": {{ default(from, 0) }},
+    "size": {{ default(size, 1000) }},
+    "query": {
+        "bool": {
+            "must": [{
+{% if (length(search)==0) %}
+            "match_all": {}
+{% else %}
+            "multi_match": {
+                "query": "{{ search }}",
+                "fields": ["album.analyzed","artist.analyzed","information"]
+            }
+{% endif %}
+}]
+{%  if (length(filters) > 0) %}
+            ,"filter": {
+                "bool": {
+                    "must": [
+                        {% for f in filters %}
+                        {
+                            "term": {
+                                "{{ f.field }}": {
+                                    "value": "{{ f.value }}"
+                                }
+                            }
+                        }
+                            {% if loop.revindex > 1 %}
+                                ,
+                            {% endif %}
+                        {% endfor %}
+                    ]
+                }
+            }
+{% endif %}
+        }
+    },
+    "aggs": {
+        "artistsAgg": {
+            "terms": {
+                "field": "artist",
+                "size": 10
+            }
+        },
+        "labelsAgg": {
+            "terms": {
+                "field": "label",
+                "size": 10
+            }
+        }
+    }
+}
