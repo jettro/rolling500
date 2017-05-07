@@ -1,3 +1,42 @@
-<p>
-  search works!
-</p>
+<md-card>
+  <md-toolbar color="primary">
+    <span>Albums</span>
+  </md-toolbar>
+  <md-card-content infinite-scroll
+                   [infiniteScrollDistance]="2"
+                   [infiniteScrollUpDistance]="1.5"
+                   [infiniteScrollThrottle]="500"
+                   (scrolled)="onScrollDown(searchFor.value)">
+    <md-input-container>
+      <input mdInput #searchFor placeholder="Search for Albums" type="text"
+             (keyup.enter)="searchAlbums(searchFor.value)">
+    </md-input-container>
+    <button (click)="searchAlbums(searchFor.value)" md-icon-button>
+      <md-icon>search</md-icon>
+    </button>
+    <span>({{ searchResponse.totalNumberOfResults }})</span>
+    <p>This page shows the found albums!</p>
+    <p *ngIf="!artistFilter"><button *ngFor="let artist of searchResponse.artists" (click)="addArtistFilter(artist.key)" md-button>{{artist.key}} ({{artist.value}})</button></p>
+    <p *ngIf="artistFilter"><button (click)="removeArtistFilter()" md-icon-button><md-icon>backspace</md-icon></button>{{artistFilter}}</p>
+    <p *ngIf="!labelFilter"><button *ngFor="let label of searchResponse.labels" (click)="addLabelFilter(label.key)" md-button>{{label.key}} ({{label.value}})</button></p>
+    <p *ngIf="labelFilter"><button (click)="removeLabelFilter()" md-icon-button><md-icon>backspace</md-icon></button>{{labelFilter}}</p>
+    <md-card *ngFor="let album of searchResponse.foundAlbums">
+      <md-card-title>{{album.sequence}}. {{album.album}}</md-card-title>
+      <md-card-content>
+        <md-grid-list cols="2" rowHeight="220px">
+          <md-grid-tile >
+            <img src="{{backend}}images/{{album.image}}" width="200px"/>
+          </md-grid-tile>
+          <md-grid-tile>
+            <ul>
+              <li>{{album.artist}}</li>
+              <li>{{album.year}}</li>
+              <li>{{album.label}}</li>
+            </ul>
+          </md-grid-tile>
+        </md-grid-list>
+        <div [innerHTML]="album.information"></div>
+      </md-card-content>
+    </md-card>
+  </md-card-content>
+</md-card>

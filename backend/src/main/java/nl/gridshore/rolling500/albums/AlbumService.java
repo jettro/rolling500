@@ -57,6 +57,7 @@ public class AlbumService {
         HitsAggsResponse<Album> searchResponse = searchService.aggsByTemplate(searchRequest);
         SearchResult result = new SearchResult();
         result.setFoundAlbums(searchResponse.getHits());
+        result.setTotalNumberOfResults(searchResponse.getTotalHits());
 
         TermsAggregation artistsAgg = (TermsAggregation) searchResponse.getAggregations().get("artistsAgg");
         List<KeyValuePair<Long>> artists = artistsAgg.getBuckets().stream()
