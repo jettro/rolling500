@@ -18,17 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/albums")
 public class AlbumsController {
-    private static final String INDEX = "rolling500";
-    private static final String TYPE = "album";
     private static final int SIZE = 10;
 
     private final AlbumService albumService;
-    private final DocumentService documentService;
 
     @Autowired
-    public AlbumsController(AlbumService albumService, DocumentService documentService) {
+    public AlbumsController(AlbumService albumService) {
         this.albumService = albumService;
-        this.documentService = documentService;
     }
 
     @GetMapping

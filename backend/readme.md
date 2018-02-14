@@ -65,4 +65,3 @@ curl -XPUT 'http://localhost:19200/_snapshot/my_backup' -d '{
     }
 }'
 ```
-

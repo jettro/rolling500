@@ -2,6 +2,7 @@ package nl.gridshore.rolling500.evidence;
 
 import eu.luminis.elastic.document.DocumentService;
 import eu.luminis.elastic.document.IndexRequest;
+import eu.luminis.elastic.document.SingleClusterDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class EvidenceController {
     private static final String INDEX = "evidences";
     private static final String TYPE = "evidence";
-    private final DocumentService documentService;
+    private final SingleClusterDocumentService documentService;
 
     @Autowired
-    public EvidenceController(DocumentService documentService) {
+    public EvidenceController(SingleClusterDocumentService documentService) {
         this.documentService = documentService;
     }
 

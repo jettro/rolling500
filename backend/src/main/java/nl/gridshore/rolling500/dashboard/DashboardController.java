@@ -2,8 +2,9 @@ package nl.gridshore.rolling500.dashboard;
 
 import eu.luminis.elastic.search.SearchByTemplateRequest;
 import eu.luminis.elastic.search.SearchService;
+import eu.luminis.elastic.search.SingleClusterSearchService;
 import eu.luminis.elastic.search.response.HitsAggsResponse;
-import eu.luminis.elastic.search.response.TermsAggregation;
+import eu.luminis.elastic.search.response.aggregations.bucket.TermsAggregation;
 import nl.gridshore.rolling500.evidence.Evidence;
 import nl.gridshore.rolling500.evidence.EvidenceTypeReference;
 import nl.gridshore.rolling500.ratings.Rating;
@@ -26,11 +27,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/dashboard")
 public class DashboardController {
 
-    private final SearchService searchService;
+    private final SingleClusterSearchService searchService;
     private final RatingsService ratingsService;
 
     @Autowired
-    public DashboardController(SearchService searchService, RatingsService ratingsService) {
+    public DashboardController(SingleClusterSearchService searchService, RatingsService ratingsService) {
         this.searchService = searchService;
         this.ratingsService = ratingsService;
     }

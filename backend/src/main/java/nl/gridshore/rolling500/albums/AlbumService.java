@@ -1,18 +1,18 @@
 package nl.gridshore.rolling500.albums;
 
-import eu.luminis.elastic.document.DocumentService;
 import eu.luminis.elastic.document.QueryByIdRequest;
+import eu.luminis.elastic.document.SingleClusterDocumentService;
 import eu.luminis.elastic.search.SearchByTemplateRequest;
-import eu.luminis.elastic.search.SearchService;
+import eu.luminis.elastic.search.SingleClusterSearchService;
 import eu.luminis.elastic.search.response.HitsAggsResponse;
-import eu.luminis.elastic.search.response.TermsAggregation;
+import eu.luminis.elastic.search.response.HitsResponse;
+import eu.luminis.elastic.search.response.aggregations.bucket.TermsAggregation;
 import nl.gridshore.rolling500.dashboard.KeyValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +23,11 @@ public class AlbumService {
     private static final String INDEX = "rolling500";
     private static final String TYPE = "album";
 
-    private final SearchService searchService;
-    private final DocumentService documentService;
+    private final SingleClusterSearchService searchService;
+    private final SingleClusterDocumentService documentService;
 
     @Autowired
-    public AlbumService(SearchService searchService, DocumentService documentService) {
+    public AlbumService(SingleClusterSearchService searchService, SingleClusterDocumentService documentService) {
         this.searchService = searchService;
         this.documentService = documentService;
     }
@@ -79,7 +79,7 @@ public class AlbumService {
     }
 
     public List<Album> findAllAlbums() {
-        return doQueryAlbums("find_all_albums.twig",1L, 501);
+        return doQueryAlbums("find_all_albums.twig", 1L, 501);
     }
 
     public Album findAlbumById(long id) {
@@ -103,7 +103,9 @@ public class AlbumService {
                 .setModelParams(params)
                 .setTypeReference(new AlbumEntityTypeReference());
 
-        return searchService.queryByTemplate(request);
+        HitsResponse<Album> objectHitsResponse = searchService.queryByTemplate(request);
+
+        return objectHitsResponse.getHits();
     }
 
     public List<Album> findAlbumBySequenceId(List<Long> ids) {
@@ -118,6 +120,7 @@ public class AlbumService {
                 .setModelParams(params)
                 .setTypeReference(new AlbumEntityTypeReference());
 
-        return searchService.queryByTemplate(request);
+        HitsResponse<Album> objectHitsResponse = searchService.queryByTemplate(request);
+        return objectHitsResponse.getHits();
     }
 }

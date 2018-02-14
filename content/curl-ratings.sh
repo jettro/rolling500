@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl -XPUT "http://localhost:19200/ratings-20170319103826" -d'
+curl -XPUT "http://localhost:19200/ratings-20170319103826" -H 'Content-Type: application/json' -d'
 {
   "settings": {
     "number_of_replicas": 0,
@@ -20,7 +20,7 @@ curl -XPUT "http://localhost:19200/ratings-20170319103826" -d'
   }
 }'
 
-curl -XPOST "http://localhost:19200/_reindex" -d '
+curl -XPOST "http://localhost:19200/_reindex" -H 'Content-Type: application/json' -d '
 {
   "source": {
     "index": "ratings-20170319102926"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl -XPUT "http://localhost:9200/rolling500" -d'
+curl -XPUT "http://localhost:9200/rolling500" -H 'Content-Type: application/json' -d'
 {
   "settings": {
     "number_of_replicas": 0,

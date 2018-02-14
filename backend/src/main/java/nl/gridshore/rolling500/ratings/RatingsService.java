@@ -4,8 +4,11 @@ import eu.luminis.elastic.document.DocumentService;
 import eu.luminis.elastic.document.IndexRequest;
 import eu.luminis.elastic.document.QueryByIdNotFoundException;
 import eu.luminis.elastic.document.QueryByIdRequest;
+import eu.luminis.elastic.document.SingleClusterDocumentService;
 import eu.luminis.elastic.search.SearchByTemplateRequest;
 import eu.luminis.elastic.search.SearchService;
+import eu.luminis.elastic.search.SingleClusterSearchService;
+import eu.luminis.elastic.search.response.HitsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +20,11 @@ public class RatingsService {
     private static final String TYPE = "rating";
     private static final String QUERY_ALL_TMPL = "find_all_ratings.twig";
 
-    private final DocumentService documentService;
-    private final SearchService searchService;
+    private final SingleClusterDocumentService documentService;
+    private final SingleClusterSearchService searchService;
 
     @Autowired
-    public RatingsService(DocumentService documentService, SearchService searchService) {
+    public RatingsService(SingleClusterDocumentService documentService, SingleClusterSearchService searchService) {
         this.documentService = documentService;
         this.searchService = searchService;
     }
@@ -55,7 +58,8 @@ public class RatingsService {
                 .setTemplateName(QUERY_ALL_TMPL)
                 .setTypeReference(new RatingTypeReference());
 
-        return searchService.queryByTemplate(request);
+        HitsResponse<Rating> tHitsResponse = searchService.queryByTemplate(request);
+        return tHitsResponse.getHits();
 
     }
 
