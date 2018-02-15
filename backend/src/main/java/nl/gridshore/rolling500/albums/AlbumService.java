@@ -8,6 +8,7 @@ import eu.luminis.elastic.search.response.HitsAggsResponse;
 import eu.luminis.elastic.search.response.HitsResponse;
 import eu.luminis.elastic.search.response.aggregations.bucket.TermsAggregation;
 import nl.gridshore.rolling500.dashboard.KeyValuePair;
+import nl.gridshore.rolling500.searchstats.SearchStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -25,11 +26,13 @@ public class AlbumService {
 
     private final SingleClusterSearchService searchService;
     private final SingleClusterDocumentService documentService;
+    private final SearchStatsService searchStatsService;
 
     @Autowired
-    public AlbumService(SingleClusterSearchService searchService, SingleClusterDocumentService documentService) {
+    public AlbumService(SingleClusterSearchService searchService, SingleClusterDocumentService documentService, SearchStatsService searchStatsService) {
         this.searchService = searchService;
         this.documentService = documentService;
+        this.searchStatsService = searchStatsService;
     }
 
     public SearchResult searchAlbums(SearchRequest request) {
@@ -55,9 +58,18 @@ public class AlbumService {
                 .setTypeReference(new AlbumEntityTypeReference());
 
         HitsAggsResponse<Album> searchResponse = searchService.aggsByTemplate(searchRequest);
+
         SearchResult result = new SearchResult();
         result.setFoundAlbums(searchResponse.getHits());
         result.setTotalNumberOfResults(searchResponse.getTotalHits());
+
+        // Log the request/response
+        searchStatsService.logSearchStats(request,
+                searchResponse.getHits().stream().map(album -> String.valueOf(album.getId())).collect(Collectors.toList()),
+                searchResponse.getTotalHits(),
+                result.getQueryId()
+                );
+
 
         TermsAggregation artistsAgg = (TermsAggregation) searchResponse.getAggregations().get("artistsAgg");
         List<KeyValuePair<Long>> artists = artistsAgg.getBuckets().stream()

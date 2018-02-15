@@ -3,6 +3,7 @@ package nl.gridshore.rolling500.albums;
 import nl.gridshore.rolling500.dashboard.KeyValuePair;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Result from a search request
@@ -12,6 +13,11 @@ public class SearchResult {
     private List<Album> foundAlbums;
     private List<KeyValuePair<Long>> artists;
     private List<KeyValuePair<Long>> labels;
+    private String queryId;
+
+    public SearchResult() {
+        queryId = UUID.randomUUID().toString();
+    }
 
     public long getTotalNumberOfResults() {
         return totalNumberOfResults;
@@ -43,5 +49,13 @@ public class SearchResult {
 
     public void setLabels(List<KeyValuePair<Long>> labels) {
         this.labels = labels;
+    }
+
+    public String getQueryId() {
+        return queryId;
+    }
+
+    public void setQueryId(String queryId) {
+        this.queryId = queryId;
     }
 }
