@@ -1,6 +1,8 @@
 package nl.gridshore.rolling500.searchstats;
 
 import nl.gridshore.rolling500.albums.SearchRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -12,8 +14,11 @@ import java.util.List;
  */
 @Service
 public class SearchStatsService {
+    private static final Logger logger = LoggerFactory.getLogger("STATSLOGGER");
+
     public void logSearchStats(SearchRequest request, List<String> foundIds, long totalHits, String queryId) {
         List<String> stats = Arrays.asList(
+                "S",
                 String.valueOf(System.currentTimeMillis()),
                 queryId,
                 request.getSearchString(),
@@ -23,15 +28,16 @@ public class SearchStatsService {
                 String.valueOf(totalHits)
         );
 
-        System.out.println(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
+        logger.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
     }
 
     public void logClickStat(String queryId, long albumId) {
         List<String> stats = Arrays.asList(
+                "C",
                 String.valueOf(System.currentTimeMillis()),
                 queryId,
                 String.valueOf(albumId)
         );
-        System.out.println(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
+        logger.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
     }
 }

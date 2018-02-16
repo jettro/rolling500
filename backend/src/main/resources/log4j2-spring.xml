@@ -4,8 +4,16 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
+        <File name="StatsFile" fileName="logs/stats.log">
+            <PatternLayout>
+                <Pattern>%m%n</Pattern>
+            </PatternLayout>
+        </File>
     </Appenders>
     <Loggers>
+        <Logger name="STATSLOGGER" level="INFO" additivity="false">
+            <AppenderRef ref="StatsFile"/>
+        </Logger>
         <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
