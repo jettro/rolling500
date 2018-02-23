@@ -16,7 +16,7 @@ curl -XPUT "http://localhost:9200/rolling500" -H 'Content-Type: application/json
           "type": "keyword",
           "fields": {
             "analyzed": {
-              "type": "text"              
+              "type": "text"
             }
           }
         },
@@ -24,7 +24,7 @@ curl -XPUT "http://localhost:9200/rolling500" -H 'Content-Type: application/json
           "type": "keyword",
           "fields": {
             "analyzed": {
-              "type": "text"              
+              "type": "text"
             }
           }
         },
@@ -48,6 +48,17 @@ curl -XPUT "http://localhost:9200/rolling500" -H 'Content-Type: application/json
         },
         "year": {
           "type": "long"
+        },
+        "clicks": {
+          "type": "nested",
+          "properties": {
+            "term": {
+              "type": "keyword"
+            },
+            "clicks": {
+              "type": "long"
+            }
+          }
         }
       }
     }

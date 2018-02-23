@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class AlbumService {
-    private static final String INDEX = "rolling500";
-    private static final String TYPE = "album";
+    public static final String INDEX = "rolling500";
+    public static final String TYPE = "album";
 
     private final SingleClusterSearchService searchService;
     private final SingleClusterDocumentService documentService;

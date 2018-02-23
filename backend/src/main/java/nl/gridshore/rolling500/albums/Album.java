@@ -1,5 +1,7 @@
 package nl.gridshore.rolling500.albums;
 
+import java.util.List;
+
 public class Album {
     private long id;
     private String album;
@@ -10,6 +12,7 @@ public class Album {
     private String information;
     private long order;
     private String artist;
+    private List<Click> clicks;
 
     public String getArtist() {
         return artist;
@@ -81,5 +84,14 @@ public class Album {
 
     public void setOrder(long order) {
         this.order = order;
+    }
+
+    public List<Click> getClicks() {
+        return clicks;
+    }
+
+    public Album setClicks(List<Click> clicks) {
+        this.clicks = clicks;
+        return this;
     }
 }
