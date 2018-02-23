@@ -1,0 +1,26 @@
+{
+  "query": {
+    "nested": {
+      "path": "clicks",
+      "query": {
+        "function_score": {
+          "query": {
+            "term": {
+              "clicks.term": {
+                "value": "{{keywords}}"
+              }
+            }
+          },
+          "functions": [
+            {
+              "field_value_factor": {
+                "field": "clicks.clicks",
+                "modifier": "log1p"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

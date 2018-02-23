@@ -50,9 +50,14 @@ public class AlbumService {
             params.put("filters", request.getFilters());
         }
 
+        String twigTemplate = "search_albums.twig";
+        if (request.isEnableLtr()) {
+            twigTemplate = "search_albums_ltr.twig";
+        }
+
         SearchByTemplateRequest searchRequest = SearchByTemplateRequest.create()
                 .setIndexName(INDEX)
-                .setTemplateName("search_albums.twig")
+                .setTemplateName(twigTemplate)
                 .setAddId(false)
                 .setModelParams(params)
                 .setTypeReference(new AlbumEntityTypeReference());

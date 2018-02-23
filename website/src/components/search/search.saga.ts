@@ -12,7 +12,8 @@ function* fetchSearchResults(action: { type: string, payload: any }) {
         const results = yield call(axios.post, `${API_URL.SEARCH}`, {
             searchString: action.payload.searchString,
             page: 0,
-            size: 10
+            size: 10,
+            enableLtr: action.payload.enableLtr,
         });
 
         const albums: Array<IHit> = results.data.foundAlbums.map((album: any) => {

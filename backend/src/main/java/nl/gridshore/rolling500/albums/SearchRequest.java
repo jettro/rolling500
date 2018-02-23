@@ -10,6 +10,7 @@ public class SearchRequest {
     private long page;
     private int size;
     private String searchString;
+    private boolean enableLtr = false;
     private List<FilterRequest> filters;
 
     public long getPage() {
@@ -42,5 +43,13 @@ public class SearchRequest {
 
     public void setFilters(List<FilterRequest> filters) {
         this.filters = filters;
+    }
+
+    public boolean isEnableLtr() {
+        return enableLtr;
+    }
+
+    public void setEnableLtr(boolean enableLtr) {
+        this.enableLtr = enableLtr;
     }
 }

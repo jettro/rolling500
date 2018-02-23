@@ -14,6 +14,7 @@ interface ISearchBoxProps {
 interface ISearchBoxState {
     searchString: string;
     selectedHit: IHit;
+    enableLtr: boolean;
 }
 
 class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
@@ -21,7 +22,8 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         super(props);
         this.state = {
             searchString: '',
-            selectedHit: null
+            selectedHit: null,
+            enableLtr: false
         };
     }
 
@@ -32,15 +34,22 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
     };
 
     handleExecuteSearch = () => {
-        this.props.fetchSearchResults(this.state.searchString);
+        this.props.fetchSearchResults(this.state.searchString, this.state.enableLtr);
     };
 
     handleItemClick = (item: IHit) => {
         this.setState({
             searchString: this.state.searchString,
             selectedHit: item,
+            enableLtr: this.state.enableLtr,
         });
-        this.props.registerClick(item.id, this.props.hits.queryId);
+        this.props.registerClick(item.id, this.props.hits.queryId, this.state.searchString);
+    };
+
+    toggleLtr = (event: any) => {
+        this.setState({
+            enableLtr: !this.state.enableLtr,
+        });
     };
 
     render() {
@@ -52,6 +61,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
                             <Form onSubmit={this.handleExecuteSearch}>
                                 <Form.Input icon={{name: 'search', circular: true}} placeholder='Search ...'
                                             onChange={this.handleSearchChange}/>
+                                <Form.Radio toggle onChange={this.toggleLtr} label='Enable Learning To Rank' content='test'/>
                             </Form>
                         </Card.Header>
                         <List divided relaxed>
@@ -102,8 +112,8 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-    fetchSearchResults: (searchString: string) => dispatch(executeSearch(searchString)),
-    registerClick: (albumId: number, queryId: string) => dispatch(registerSearchClick(albumId, queryId)),
+    fetchSearchResults: (searchString: string, enableLtr: boolean) => dispatch(executeSearch(searchString, enableLtr)),
+    registerClick: (albumId: number, queryId: string, searchString: string) => dispatch(registerSearchClick(albumId, queryId, searchString)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
