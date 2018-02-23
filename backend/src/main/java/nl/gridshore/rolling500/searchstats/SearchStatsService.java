@@ -14,11 +14,11 @@ import java.util.List;
  */
 @Service
 public class SearchStatsService {
-    private static final Logger logger = LoggerFactory.getLogger("STATSLOGGER");
+    private static final Logger QUERY_LOGGER = LoggerFactory.getLogger("QUERY_LOGGER");
+    private static final Logger CLICK_LOGGER = LoggerFactory.getLogger("CLICKS_LOGGER");
 
     public void logSearchStats(SearchRequest request, List<String> foundIds, long totalHits, String queryId) {
         List<String> stats = Arrays.asList(
-                "S",
                 String.valueOf(System.currentTimeMillis()),
                 queryId,
                 request.getSearchString(),
@@ -28,16 +28,15 @@ public class SearchStatsService {
                 String.valueOf(totalHits)
         );
 
-        logger.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
+        QUERY_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
     }
 
     public void logClickStat(String queryId, long albumId) {
         List<String> stats = Arrays.asList(
-                "C",
                 String.valueOf(System.currentTimeMillis()),
                 queryId,
                 String.valueOf(albumId)
         );
-        logger.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
+        CLICK_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
     }
 }

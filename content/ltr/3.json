@@ -1,0 +1,8 @@
+{
+    "query": {
+        "match": {
+            "information": "{{keywords}}"
+        }
+    }
+}
+

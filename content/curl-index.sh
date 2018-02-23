@@ -13,10 +13,20 @@ curl -XPUT "http://localhost:9200/rolling500" -H 'Content-Type: application/json
           "type": "long"
         },
         "album": {
-          "type": "keyword"
+          "type": "keyword",
+          "fields": {
+            "analyzed": {
+              "type": "text"              
+            }
+          }
         },
         "artist": {
-          "type": "keyword"
+          "type": "keyword",
+          "fields": {
+            "analyzed": {
+              "type": "text"              
+            }
+          }
         },
         "image": {
           "type": "keyword"

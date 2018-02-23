@@ -4,15 +4,23 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <File name="StatsFile" fileName="logs/stats.log">
+        <File name="QueryStatsFile" fileName="logs/query_stats.log">
+            <PatternLayout>
+                <Pattern>%m%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="ClickStatsFile" fileName="logs/click_stats.log">
             <PatternLayout>
                 <Pattern>%m%n</Pattern>
             </PatternLayout>
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="STATSLOGGER" level="INFO" additivity="false">
-            <AppenderRef ref="StatsFile"/>
+        <Logger name="QUERY_LOGGER" level="INFO" additivity="false">
+            <AppenderRef ref="QueryStatsFile"/>
+        </Logger>
+        <Logger name="CLICKS_LOGGER" level="INFO" additivity="false">
+            <AppenderRef ref="ClickStatsFile"/>
         </Logger>
         <Root level="info">
             <AppenderRef ref="Console"/>
