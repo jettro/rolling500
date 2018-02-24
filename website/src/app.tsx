@@ -4,6 +4,7 @@ import PageHeader from './components/header/header';
 import { Search } from './components/search/search';
 
 import { Container, Divider, List, Segment } from 'semantic-ui-react';
+import {SearchCompare} from "./components/search/search-compare";
 
 export default class App extends React.Component {
 
@@ -15,6 +16,7 @@ export default class App extends React.Component {
 
                     <Container style={{ marginTop: '7em' }}>
                         <Route exact path="/" component={Search} />
+                        <Route exact path="/compare" component={SearchCompare} />
                     </Container>
 
 

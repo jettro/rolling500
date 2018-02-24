@@ -19,6 +19,9 @@ export class PageHeader extends React.Component<IHeader, {}> {
                     <Menu.Item as={Link} header name="home" to="/">
                         Search
                     </Menu.Item>
+                    <Menu.Item as={Link} header name="searchcompare" to="/compare">
+                        Search compare
+                    </Menu.Item>
                 </Container>
             </Menu>
         );

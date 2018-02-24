@@ -1,7 +1,9 @@
 import {call, put, select, takeEvery} from 'redux-saga/effects';
 import axios from 'axios';
 import {
-    executeSearchFailed, receiveSearchResults, REGISTER_SEARCH_CLICK,
+    executeDoubleSearchFailed,
+    executeSearchFailed, receiveDoubleSearchResults, receiveSearchResults, REGISTER_SEARCH_CLICK,
+    REQUEST_EXECUTE_DOUBLE_SEARCH,
     REQUEST_EXECUTE_SEARCH
 } from "./search.actions";
 import {API_URL} from "../../api";
@@ -30,6 +32,53 @@ function* fetchSearchResults(action: { type: string, payload: any }) {
     }
 }
 
+function* fetchSearchDoubleResults(action: { type: string, payload: any }) {
+    try {
+        const withResults = yield call(axios.post, `${API_URL.SEARCH}`, {
+            searchString: action.payload.searchString,
+            page: 0,
+            size: 10,
+            enableLtr: true,
+        });
+
+        const withAlbums: Array<IHit> = withResults.data.foundAlbums.map((album: any) => {
+            let iHit = new IHit(album.id, album.album, album.artist, album.information);
+            iHit.image = album.image;
+            return iHit;
+        });
+        const withResult = new IHits();
+        withResult.hits = withAlbums;
+        withResult.queryId = withResults.data.queryId;
+
+        const withoutResults = yield call(axios.post, `${API_URL.SEARCH}`, {
+            searchString: action.payload.searchString,
+            page: 0,
+            size: 10,
+            enableLtr: false,
+        });
+
+        const withoutAlbums: Array<IHit> = withoutResults.data.foundAlbums.map((album: any) => {
+            let iHit = new IHit(album.id, album.album, album.artist, album.information);
+            iHit.image = album.image;
+            return iHit;
+        });
+        const withoutResult = new IHits();
+        withoutResult.hits = withoutAlbums;
+        withoutResult.queryId = withoutResults.data.queryId;
+
+        const result = {
+            withLtrHits: withResult,
+            withoutLtrHits: withoutResult,
+        };
+
+        console.log(result);
+
+        yield put(receiveDoubleSearchResults(result));
+    } catch (e) {
+        yield put(executeDoubleSearchFailed(e));
+    }
+}
+
 function* postClick(action: {type: string, payload: any}) {
     try {
         yield call(axios.post, `${API_URL.POST_CLICK}`, action.payload);
@@ -42,6 +91,7 @@ function* postClick(action: {type: string, payload: any}) {
 function* searchSaga() {
     yield takeEvery(REQUEST_EXECUTE_SEARCH, fetchSearchResults);
     yield takeEvery(REGISTER_SEARCH_CLICK, postClick);
+    yield takeEvery(REQUEST_EXECUTE_DOUBLE_SEARCH, fetchSearchDoubleResults);
 }
 
 export default searchSaga;
