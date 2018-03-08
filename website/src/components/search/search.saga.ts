@@ -1,13 +1,14 @@
 import {call, put, select, takeEvery} from 'redux-saga/effects';
 import axios from 'axios';
 import {
-    executeDoubleSearchFailed,
-    executeSearchFailed, receiveDoubleSearchResults, receiveSearchResults, REGISTER_SEARCH_CLICK,
+    EXECUTE_FETCH_LTRMODELS,
+    executeDoubleSearchFailed, executeFetchLtrModelsFailed,
+    executeSearchFailed, receiveDoubleSearchResults, receiveFetchLtrModels, receiveSearchResults, REGISTER_SEARCH_CLICK,
     REQUEST_EXECUTE_DOUBLE_SEARCH,
     REQUEST_EXECUTE_SEARCH
 } from "./search.actions";
 import {API_URL} from "../../api";
-import {IHit, IHits} from "./search.model";
+import {IHit, IHits, LtrModel} from "./search.model";
 
 function* fetchSearchResults(action: { type: string, payload: any }) {
     try {
@@ -34,11 +35,13 @@ function* fetchSearchResults(action: { type: string, payload: any }) {
 
 function* fetchSearchDoubleResults(action: { type: string, payload: any }) {
     try {
+        console.log(action.payload);
         const withResults = yield call(axios.post, `${API_URL.SEARCH}`, {
             searchString: action.payload.searchString,
             page: 0,
             size: 10,
             enableLtr: true,
+            ltrModel: action.payload.ltrModel,
         });
 
         const withAlbums: Array<IHit> = withResults.data.foundAlbums.map((album: any) => {
@@ -71,8 +74,6 @@ function* fetchSearchDoubleResults(action: { type: string, payload: any }) {
             withoutLtrHits: withoutResult,
         };
 
-        console.log(result);
-
         yield put(receiveDoubleSearchResults(result));
     } catch (e) {
         yield put(executeDoubleSearchFailed(e));
@@ -88,10 +89,25 @@ function* postClick(action: {type: string, payload: any}) {
     }
 }
 
+function* fetchLtrModels(action: {type: string, payload: any}) {
+    try {
+        const results = yield call(axios.get, `${API_URL.MODELS}`);
+
+        const ltrModels: Array<LtrModel> = results.data.map((model: any) => {
+            return new LtrModel(model.id, model.name)
+        });
+
+        yield put(receiveFetchLtrModels(ltrModels));
+    } catch (e) {
+        yield put(executeFetchLtrModelsFailed(e));
+    }
+}
+
 function* searchSaga() {
     yield takeEvery(REQUEST_EXECUTE_SEARCH, fetchSearchResults);
     yield takeEvery(REGISTER_SEARCH_CLICK, postClick);
     yield takeEvery(REQUEST_EXECUTE_DOUBLE_SEARCH, fetchSearchDoubleResults);
+    yield takeEvery(EXECUTE_FETCH_LTRMODELS, fetchLtrModels)
 }
 
 export default searchSaga;
