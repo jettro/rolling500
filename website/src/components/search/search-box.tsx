@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {CardGroup, Card, Form, List, Image, Item} from 'semantic-ui-react';
 import {IHit, IHits} from "./search.model";
 import {executeSearch, registerSearchClick} from "./search.actions";
+import {IMG_URL} from "../../api";
 
 interface ISearchBoxProps {
     fetchSearchResults: any;
@@ -68,7 +69,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
                             {this.props.hits.hits ? this.props.hits.hits.map((hit: IHit) => {
                                     return (
                                         <List.Item key={hit.id} onClick={() => this.handleItemClick(hit)}>
-                                            <Image src={'http://localhost:8080/images/thumbnails/' + hit.image} avatar/>
+                                            <Image src={IMG_URL + hit.image} avatar/>
                                             <List.Content>
                                                 <List.Header>{hit.album}</List.Header>
                                                 <List.Description>{hit.artist}</List.Description>

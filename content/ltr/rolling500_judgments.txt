@@ -6,28 +6,50 @@
 # qid:1: u2
 # qid:2: metallica
 # qid:3: beatles
+# qid:4: metal
+# qid:5: tree
 #
 # https://sourceforge.net/p/lemur/wiki/RankLib%20File%20Format/
 #
 #
-4	qid:1 #	350967	U2-Achtung Baby
-4	qid:1 #	350696	U2-All That You Can't Leave Behind
-4	qid:1 #	351003	U2-The Joshua Tree
-4	qid:1 #	350640	U2-War
-4	qid:1 #	351098	U2-Boy
-1	qid:1 #	350897	Radiohead-The Bends
-1	qid:1 #	351105	Radiohead-Kid A
-1	qid:1 #	351029	The Beatles-Sgt. Pepper's Lonely Hearts Club Band
-4	qid:2 #	350672	Metallica-Metallica
-4	qid:2 #	350816	Metallica-Master of Puppets
-0	qid:2 #	351029	The Beatles-Sgt. Pepper's Lonely Hearts Club Band
-4	qid:3 #	350976	Beatles-Meet the Beatles!
-3	qid:3 #	351103	Various Artists-The Best of Girl Groups Volumes 1 and 2
-1	qid:3 #	350881	The Byrds-Younger Than Yesterday
-1	qid:3 #	351065	Oasis-(What's the Story) Morning Glory?
-4	qid:3 #	351016	The Beatles-Abbey Road
-4	qid:3 #	351027	The Beatles-Revolver
-4	qid:3 #	351025	The Beatles-Rubber Soul
-4	qid:3 #	350991	The Beatles-Please Please Me
-4	qid:3 #	351029	The Beatles-Sgt. Pepper's Lonely Hearts Club Band
-4	qid:3 #	350760	The Beatles-Help!
+4 qid:1 # 350967 U2-Achtung Baby
+4 qid:1 # 350696 U2-All That You Can't Leave Behind
+4 qid:1 # 351003 U2-The Joshua Tree
+4 qid:1 # 350640 U2-War
+4 qid:1 # 351098 U2-Boy
+1 qid:1 # 350897 Radiohead-The Bends
+1 qid:1 # 351105 Radiohead-Kid A
+1 qid:1 # 351029 The Beatles-Sgt. Pepper's Lonely Hearts Club Band
+4 qid:2 # 350672 Metallica-Metallica
+4 qid:2 # 350816 Metallica-Master of Puppets
+0 qid:2 # 351029 The Beatles-Sgt. Pepper's Lonely Hearts Club Band
+4 qid:3 # 350976 Beatles-Meet the Beatles!
+3 qid:3 # 351103 Various Artists-The Best of Girl Groups Volumes 1 and 2
+1 qid:3 # 350881 The Byrds-Younger Than Yesterday
+1 qid:3 # 351065 Oasis-(What's the Story) Morning Glory?
+4 qid:3 # 351016 The Beatles-Abbey Road
+4 qid:3 # 351027 The Beatles-Revolver
+4 qid:3 # 351025 The Beatles-Rubber Soul
+4 qid:3 # 350991 The Beatles-Please Please Me
+4 qid:3 # 351029 The Beatles-Sgt. Pepper's Lonely Hearts Club Band
+4 qid:3 # 350760 The Beatles-Help!
+1 qid:4 # 351140 Metal Box-Public Image Ltd.
+3 qid:4 # 350661 Black Sabbath-Black Sabbath
+0 qid:4 # 351140 Public Image Ltd.-Metal Box
+4 qid:4 # 350661 Black Sabbath-Black Sabbath
+0 qid:4 # 350694 Janet Jackson-Rhythm Nation 1814
+0 qid:4 # 350679 Tracy Chapman-Tracy Chapman
+3 qid:4 # 350637 Beastie Boys-License to Ill
+3 qid:4 # 350645 Pixies-Doolittle
+4 qid:4 # 350872 Black Sabbath-Paranoid
+3 qid:4 # 350779 Jane's Addiction-Nothing's Shocking
+4 qid:4 # 350728 Black Sabbath-Master of Reality
+4 qid:4 # 350672 Metallica-Metallica
+3 qid:4 # 350968 Guns N' Roses-Appetite for Destruction
+3 qid:4 # 351001 Led Zeppelin-Led Zeppelin
+3 qid:4 # 350954 AC/DC-Back in Black
+3 qid:4 # 350948 The Jimi Hendrix Experience-Axis: Bold as Love
+4 qid:4 # 351014 Nirvana-Nevermind
+0 qid:4 # 351016 The Beatles-Abbey Road
+2 qid:5 # 351059 Jefferson Airplane-Volunteers
+4 qid:5 # 351003 U2-The Joshua Tree

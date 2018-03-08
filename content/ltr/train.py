@@ -3,9 +3,11 @@ from collectFeatures import logFeatures, buildFeaturesJudgmentsFile
 from loadFeatures import initDefaultStore, loadFeatures
 from utils import Elasticsearch, ES_HOST, ES_AUTH
 
+
 def trainModel(judgmentsWithFeaturesFile, modelOutput, whichModel=6):
     # java -jar RankLib-2.6.jar -ranker 6 -train sample_judgments_wfeatures.txt -save model.txt
-    cmd = "java -jar RankLib-2.8.jar -ranker %s -train %s -save %s -frate 1.0" % (whichModel, judgmentsWithFeaturesFile, modelOutput)
+    cmd = "java -jar RankLib-2.8.jar -ranker %s -train %s -save %s -frate 1.0  -metric2t MAP" % (
+    whichModel, judgmentsWithFeaturesFile, modelOutput)
     print("*********************************************************************")
     print("*********************************************************************")
     print("Running %s" % cmd)
@@ -43,9 +45,6 @@ def saveModel(scriptName, featureSet, modelFname):
             print(resp.text)
 
 
-
-
-
 if __name__ == "__main__":
     import configparser
     from judgments import judgmentsFromFile, judgmentsByQid
@@ -61,7 +60,7 @@ if __name__ == "__main__":
     logFeatures(es, judgmentsByQid=rollingJudgments)
     buildFeaturesJudgmentsFile(rollingJudgments, filename='rolling500_judgments_wfeatures.txt')
     # Train each ranklib model type
-    for modelType in [0,1,2,3,4,5,6,7,8,9]:
+    for modelType in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
         # 0, MART
         # 1, RankNet
         # 2, RankBoost
@@ -72,5 +71,7 @@ if __name__ == "__main__":
         # 8, Random Forests
         # 9, Linear Regression
         print("*** Training %s " % modelType)
-        trainModel(judgmentsWithFeaturesFile='rolling500_judgments_wfeatures.txt', modelOutput='model.txt', whichModel=modelType)
-        saveModel(scriptName="test_%s" % modelType, featureSet='rolling_features_1', modelFname='model.txt')
+        modelOutput = 'model' + str(modelType) + '.txt'
+        trainModel(judgmentsWithFeaturesFile='rolling500_judgments_wfeatures.txt', modelOutput=modelOutput,
+                   whichModel=modelType)
+        saveModel(scriptName="test_%s" % modelType, featureSet='rolling_features_1', modelFname=modelOutput)

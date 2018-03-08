@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,11 @@ public class AlbumService {
 
         String twigTemplate = "search_albums.twig";
         if (request.isEnableLtr()) {
+            String model = "test_6";
+            if (StringUtils.hasLength(request.getLtrModel())) {
+                model = request.getLtrModel();
+            }
+            params.put("model", model);
             twigTemplate = "search_albums_ltr.twig";
         }
 
@@ -73,7 +79,7 @@ public class AlbumService {
                 searchResponse.getHits().stream().map(album -> String.valueOf(album.getId())).collect(Collectors.toList()),
                 searchResponse.getTotalHits(),
                 result.getQueryId()
-                );
+        );
 
 
         TermsAggregation artistsAgg = (TermsAggregation) searchResponse.getAggregations().get("artistsAgg");
@@ -139,5 +145,20 @@ public class AlbumService {
 
         HitsResponse<Album> objectHitsResponse = searchService.queryByTemplate(request);
         return objectHitsResponse.getHits();
+    }
+
+    public List<LtrModel> findLtrModels() {
+        return Arrays.asList(
+                new LtrModel("test_0", "MART"),
+                new LtrModel("test_1", "RankNet"),
+                new LtrModel("test_2", "RankBoost"),
+                new LtrModel("test_3", "AdaRank"),
+                new LtrModel("test_4", "Coordinate Ascent"),
+                new LtrModel("test_5", "LambdaRank"),
+                new LtrModel("test_6", "LambdaMART"),
+                new LtrModel("test_7", "ListNet"),
+                new LtrModel("test_8", "Random Forests"),
+                new LtrModel("test_9", "Linear Regression")
+        );
     }
 }

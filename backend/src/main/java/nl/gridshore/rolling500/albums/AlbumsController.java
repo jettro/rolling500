@@ -1,8 +1,5 @@
 package nl.gridshore.rolling500.albums;
 
-import eu.luminis.elastic.document.DocumentService;
-import eu.luminis.elastic.document.QueryByIdRequest;
-import eu.luminis.elastic.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,5 +47,10 @@ public class AlbumsController {
     @PostMapping("/search")
     public SearchResult search(@RequestBody SearchRequest request) {
         return albumService.searchAlbums(request);
+    }
+
+    @GetMapping("/ltrmodels")
+    public List<LtrModel> obtainAvailableModels() {
+        return albumService.findLtrModels();
     }
 }
