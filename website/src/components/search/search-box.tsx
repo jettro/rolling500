@@ -4,6 +4,7 @@ import {CardGroup, Card, Form, List, Image, Item} from 'semantic-ui-react';
 import {IHit, IHits} from "./search.model";
 import {executeSearch, registerSearchClick} from "./search.actions";
 import {IMG_URL} from "../../api";
+import {SearchResultsList} from "./search-results-list";
 
 interface ISearchBoxProps {
     fetchSearchResults: any;
@@ -65,20 +66,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
                                 <Form.Radio toggle onChange={this.toggleLtr} label='Enable Learning To Rank' content='test'/>
                             </Form>
                         </Card.Header>
-                        <List divided relaxed>
-                            {this.props.hits.hits ? this.props.hits.hits.map((hit: IHit) => {
-                                    return (
-                                        <List.Item key={hit.id} onClick={() => this.handleItemClick(hit)}>
-                                            <Image src={IMG_URL + hit.image} avatar/>
-                                            <List.Content>
-                                                <List.Header>{hit.album}</List.Header>
-                                                <List.Description>{hit.artist}</List.Description>
-                                            </List.Content>
-                                        </List.Item>
-                                    );
-                                })
-                                : []}
-                        </List>
+                        <SearchResultsList hits={this.props.hits.hits} selectItem={this.handleItemClick}/>
                     </Card.Content>
                 </Card>
                 <Card>

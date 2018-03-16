@@ -35,7 +35,6 @@ function* fetchSearchResults(action: { type: string, payload: any }) {
 
 function* fetchSearchDoubleResults(action: { type: string, payload: any }) {
     try {
-        console.log(action.payload);
         const withResults = yield call(axios.post, `${API_URL.SEARCH}`, {
             searchString: action.payload.searchString,
             page: 0,

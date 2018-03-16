@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {CardGroup, Card, Form, List, Image, Container} from 'semantic-ui-react';
-import {IHit, IHits, LtrModel} from "./search.model";
+import {CardGroup, Card, Form, Container} from 'semantic-ui-react';
+import {IHits, LtrModel} from "./search.model";
 import {executeDoubleSearch, executeFetchLtrModels} from "./search.actions";
-import {IMG_URL} from "../../api";
+import {SearchResultsList} from "./search-results-list";
 
 interface ISearchCompareBoxProps {
     fetchSearchDoubleResults: any;
@@ -37,8 +37,8 @@ class SearchCompareBox extends React.Component<ISearchCompareBoxProps, ISearchCo
         })
     };
 
-    handleSelectedLtrModelChange = (event: any, { value }: any) => {
-        this.setState( {
+    handleSelectedLtrModelChange = (event: any, {value}: any) => {
+        this.setState({
             selectedLtrModel: value,
         })
     };
@@ -52,8 +52,10 @@ class SearchCompareBox extends React.Component<ISearchCompareBoxProps, ISearchCo
             <Container>
                 <Form onSubmit={this.handleExecuteSearch}>
                     <Form.Group inline>
-                        <Form.Select options={this.props.ltrModels.map((model:LtrModel) => { return {key: model.id, text: model.name, value: model.id}})} placeholder='select model'
-                                    onChange={this.handleSelectedLtrModelChange}/>
+                        <Form.Select options={this.props.ltrModels.map((model: LtrModel) => {
+                            return {key: model.id, text: model.name, value: model.id}
+                        })} placeholder='select model'
+                                     onChange={this.handleSelectedLtrModelChange}/>
                         <Form.Input icon={{name: 'search', circular: true}} placeholder='Search ...'
                                     onChange={this.handleSearchChange}/>
                     </Form.Group>
@@ -62,39 +64,13 @@ class SearchCompareBox extends React.Component<ISearchCompareBoxProps, ISearchCo
                     <Card>
                         <Card.Content>
                             <Card.Header content='Normal'/>
-                            <List divided relaxed>
-                                {this.props.withoutLtrHits.hits ? this.props.withoutLtrHits.hits.map((hit: IHit) => {
-                                        return (
-                                            <List.Item key={hit.id}>
-                                                <Image src={IMG_URL + hit.image} avatar/>
-                                                <List.Content>
-                                                    <List.Header>{hit.album}</List.Header>
-                                                    <List.Description>{hit.artist}</List.Description>
-                                                </List.Content>
-                                            </List.Item>
-                                        );
-                                    })
-                                    : []}
-                            </List>
+                            <SearchResultsList hits={this.props.withoutLtrHits.hits}/>
                         </Card.Content>
                     </Card>
                     <Card>
                         <Card.Content>
                             <Card.Header content='Learning To Rank'/>
-                            <List divided relaxed>
-                                {this.props.withLtrHits.hits ? this.props.withLtrHits.hits.map((hit: IHit) => {
-                                        return (
-                                            <List.Item key={hit.id}>
-                                                <Image src={IMG_URL + hit.image} avatar/>
-                                                <List.Content>
-                                                    <List.Header>{hit.album}</List.Header>
-                                                    <List.Description>{hit.artist}</List.Description>
-                                                </List.Content>
-                                            </List.Item>
-                                        );
-                                    })
-                                    : []}
-                            </List>
+                            <SearchResultsList hits={this.props.withLtrHits.hits}/>
                         </Card.Content>
                     </Card>
                 </CardGroup>
