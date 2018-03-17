@@ -1,8 +1,5 @@
 package nl.gridshore.rolling500.ratings;
 
-import eu.luminis.elastic.document.IndexRequest;
-import eu.luminis.elastic.document.QueryByIdNotFoundException;
-import eu.luminis.elastic.document.QueryByIdRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

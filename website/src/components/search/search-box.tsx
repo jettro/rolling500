@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {CardGroup, Card, Form, Item} from 'semantic-ui-react';
+import {CardGroup, Card, Form} from 'semantic-ui-react';
 import {IHit, IHits} from "./search.model";
 import {executeSearch, registerSearchClick} from "./search.actions";
 import {SearchResultsList} from "./search-results-list";
-import {IMG_URL} from "../../api";
 import {SearchBoxDetail} from "./search-box-detail";
 
 interface ISearchBoxProps {

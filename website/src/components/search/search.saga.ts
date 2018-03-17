@@ -25,6 +25,7 @@ function* fetchSearchResults(action: { type: string, payload: any }) {
         const albums: Array<IHit> = results.data.foundAlbums.map((album: any) => {
             let iHit = new IHit(album.id, album.album, album.artist, album.information);
             iHit.image = album.image;
+            iHit.sequence = album.sequence;
             return iHit;
         });
         const result = new IHits();

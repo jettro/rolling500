@@ -5,8 +5,19 @@ import { Search } from './components/search/search';
 
 import { Container, Divider, List, Segment } from 'semantic-ui-react';
 import {SearchCompare} from "./components/search/search-compare";
+import {executeSearch, registerSearchClick} from "./components/search/search.actions";
+import {connect} from "react-redux";
+import {requestMyRatings} from "./components/rating/rating.actions";
 
-export default class App extends React.Component {
+interface IAppProps {
+    fetchRatings: any
+}
+
+class App extends React.Component<IAppProps, null> {
+
+    componentDidMount() {
+        this.props.fetchRatings();
+    }
 
     render() {
         return (
@@ -47,3 +58,9 @@ export default class App extends React.Component {
         );
     }
 }
+
+const mapDispatchToProps = (dispatch: Function) => ({
+    fetchRatings: () => dispatch(requestMyRatings()),
+});
+
+export default connect(null, mapDispatchToProps)(App);
