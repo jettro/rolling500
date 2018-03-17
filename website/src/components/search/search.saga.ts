@@ -12,11 +12,14 @@ import {IHit, IHits, LtrModel} from "./search.model";
 
 function* fetchSearchResults(action: { type: string, payload: any }) {
     try {
+        const userId = localStorage.getItem('user_id');
+
         const results = yield call(axios.post, `${API_URL.SEARCH}`, {
             searchString: action.payload.searchString,
             page: 0,
             size: 10,
             enableLtr: action.payload.enableLtr,
+            userId: userId
         });
 
         const albums: Array<IHit> = results.data.foundAlbums.map((album: any) => {
@@ -34,6 +37,7 @@ function* fetchSearchResults(action: { type: string, payload: any }) {
 }
 
 function* fetchSearchDoubleResults(action: { type: string, payload: any }) {
+
     try {
         const withResults = yield call(axios.post, `${API_URL.SEARCH}`, {
             searchString: action.payload.searchString,
@@ -81,7 +85,11 @@ function* fetchSearchDoubleResults(action: { type: string, payload: any }) {
 
 function* postClick(action: {type: string, payload: any}) {
     try {
-        yield call(axios.post, `${API_URL.POST_CLICK}`, action.payload);
+        const userId = localStorage.getItem('user_id');
+        const clickBody: any = action.payload;
+        clickBody.userId = userId;
+
+        yield call(axios.post, `${API_URL.POST_CLICK}`, clickBody);
     } catch (e) {
         // as this is not mandatory, do not do anything with the error
         console.log(e.message);

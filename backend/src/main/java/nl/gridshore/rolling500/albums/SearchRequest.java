@@ -13,6 +13,7 @@ public class SearchRequest {
     private boolean enableLtr = false;
     private String ltrModel;
     private List<FilterRequest> filters;
+    private String userId;
 
     public long getPage() {
         return page;
@@ -60,5 +61,13 @@ public class SearchRequest {
 
     public void setLtrModel(String ltrModel) {
         this.ltrModel = ltrModel;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

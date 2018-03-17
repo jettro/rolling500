@@ -10,6 +10,6 @@ export const API_URL = {
     MODELS: 'albums/ltrmodels'
 };
 
-export const IMG_URL = 'http://localhost:8080/images/thumbnails/';
+export const IMG_URL = 'http://localhost:8080/images/';
 
 

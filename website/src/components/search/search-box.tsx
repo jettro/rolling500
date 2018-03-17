@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {CardGroup, Card, Form, List, Image, Item} from 'semantic-ui-react';
+import {CardGroup, Card, Form, Item} from 'semantic-ui-react';
 import {IHit, IHits} from "./search.model";
 import {executeSearch, registerSearchClick} from "./search.actions";
-import {IMG_URL} from "../../api";
 import {SearchResultsList} from "./search-results-list";
+import {IMG_URL} from "../../api";
+import {SearchBoxDetail} from "./search-box-detail";
 
 interface ISearchBoxProps {
     fetchSearchResults: any;
@@ -73,20 +74,10 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
                     <Card.Content>
                         <Card.Header content='Details'/>
                         {this.state.selectedHit ?
-                            <Item>
-                                <Item.Image src={'http://localhost:8080/images/' + this.state.selectedHit.image}
-                                            size='tiny'/>
-                                <Item.Content>
-                                    <Item.Header>{this.state.selectedHit.album}</Item.Header>
-                                    <Item.Meta>{this.state.selectedHit.artist}</Item.Meta>
-                                    <Item.Description>
-                                        <div dangerouslySetInnerHTML={{__html: this.state.selectedHit.information}}/>
-                                    </Item.Description>
-                                </Item.Content>
-                            </Item>
+                            <SearchBoxDetail hit={this.state.selectedHit}/>
                             :
-                            <div>Please select a result first</div>}
-
+                            <div>Please select a result first</div>
+                        }
                     </Card.Content>
 
                 </Card>

@@ -10,33 +10,40 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * TODO: Zou nog iets met de sessie id willen doen:
+ * Service used to log queries and clicks to a file
  */
 @Service
 public class SearchStatsService {
     private static final Logger QUERY_LOGGER = LoggerFactory.getLogger("QUERY_LOGGER");
     private static final Logger CLICK_LOGGER = LoggerFactory.getLogger("CLICKS_LOGGER");
 
-    public void logSearchStats(SearchRequest request, List<String> foundIds, long totalHits, String queryId) {
+    public void logSearchStats(SearchRequest request, List<String> foundIds, long totalHits, String queryId,
+                               String userId) {
         List<String> stats = Arrays.asList(
                 String.valueOf(System.currentTimeMillis()),
+                userId,
                 queryId,
+                String.valueOf(totalHits),
                 request.getSearchString(),
                 String.valueOf(request.getPage()),
                 String.valueOf(request.getSize()),
-                StringUtils.arrayToDelimitedString(foundIds.toArray(), ";"),
-                String.valueOf(totalHits)
+                StringUtils.arrayToDelimitedString(foundIds.toArray(), ";")
         );
 
-        QUERY_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
+        if (QUERY_LOGGER.isInfoEnabled()) {
+            QUERY_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
+        }
     }
 
-    public void logClickStat(String queryId, long albumId) {
+    public void logClickStat(String queryId, long albumId, String userId) {
         List<String> stats = Arrays.asList(
                 String.valueOf(System.currentTimeMillis()),
+                userId,
                 queryId,
                 String.valueOf(albumId)
         );
-        CLICK_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
+        if (CLICK_LOGGER.isInfoEnabled()) {
+            CLICK_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
+        }
     }
 }

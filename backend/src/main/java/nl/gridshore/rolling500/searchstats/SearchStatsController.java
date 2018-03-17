@@ -38,18 +38,18 @@ public class SearchStatsController {
     public String sendClick(@RequestBody ClickRegistrationRequest request) {
         long albumId = request.getAlbumId();
 
-        searchStatsService.logClickStat(request.getQueryId(), albumId);
+        searchStatsService.logClickStat(request.getQueryId(), albumId, request.getUserId());
 
         Album album = albumService.findAlbumById(albumId);
         if (album != null) {
-            album = incrementClick(album, request);
+            incrementClick(album, request);
             documentService.update(new UpdateRequest(INDEX, TYPE, String.valueOf(albumId)).setEntity(album));
         }
 
         return "OK";
     }
 
-    private Album incrementClick(Album album, ClickRegistrationRequest request) {
+    private void incrementClick(Album album, ClickRegistrationRequest request) {
         List<Click> clicks = album.getClicks();
         Click click = null;
         if (clicks == null || clicks.isEmpty()) {
@@ -74,7 +74,6 @@ public class SearchStatsController {
 
         clicks.add(click);
         album.setClicks(clicks);
-        return album;
     }
 
     private Click initEmptyClick(ClickRegistrationRequest request) {

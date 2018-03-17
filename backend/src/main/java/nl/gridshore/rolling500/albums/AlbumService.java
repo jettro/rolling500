@@ -78,7 +78,8 @@ public class AlbumService {
         searchStatsService.logSearchStats(request,
                 searchResponse.getHits().stream().map(album -> String.valueOf(album.getId())).collect(Collectors.toList()),
                 searchResponse.getTotalHits(),
-                result.getQueryId()
+                result.getQueryId(),
+                request.getUserId()
         );
 
 

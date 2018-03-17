@@ -34,7 +34,7 @@ const generateUUID = () => { // Public Domain/MIT
 };
 
 if (!localStorage.getItem('user_id')) {
-    localStorage.setItem('user_id', this.generateUUID())
+    localStorage.setItem('user_id', generateUUID())
 }
 
 // Redux store

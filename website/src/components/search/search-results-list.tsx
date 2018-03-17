@@ -13,8 +13,6 @@ export const SearchResultsList: React.StatelessComponent<ISearchResultsListProps
     const handleItemClick = (hit: IHit) => {
         if (selectItem) {
             selectItem(hit);
-        } else {
-            console.log("Clicked, but nothing to do");
         }
     };
 
@@ -23,7 +21,7 @@ export const SearchResultsList: React.StatelessComponent<ISearchResultsListProps
             {hits ? hits.map((hit: IHit) => {
                     return (
                         <List.Item key={hit.id} onClick={() => handleItemClick(hit)}>
-                            <Image src={IMG_URL + hit.image} avatar/>
+                            <Image src={IMG_URL + 'thumbnails/' + hit.image} avatar/>
                             <List.Content>
                                 <List.Header>{hit.album}</List.Header>
                                 < List.Description>{hit.artist}</List.Description>

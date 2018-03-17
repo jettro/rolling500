@@ -4,6 +4,7 @@ public class ClickRegistrationRequest {
     private String queryId;
     private long albumId;
     private String searchString;
+    private String userId;
 
     public String getQueryId() {
         return queryId;
@@ -25,8 +26,15 @@ public class ClickRegistrationRequest {
         return searchString;
     }
 
-    public ClickRegistrationRequest setSearchString(String searchString) {
+    public void setSearchString(String searchString) {
         this.searchString = searchString;
-        return this;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
