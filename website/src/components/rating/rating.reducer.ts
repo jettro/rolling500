@@ -1,7 +1,7 @@
 import {IAction} from "../../types/action";
 import {
     EXECUTE_STORE_MY_RATING,
-    EXECUTE_STORE_MY_RATING_FAILED, EXECUTE_STORE_MY_RATING_SUCCESS, RECEIVE_MY_RATINGS, REQUEST_MY_RATINGS,
+    EXECUTE_STORE_MY_RATING_FAILED, RECEIVE_MY_RATINGS, REQUEST_MY_RATINGS,
     REQUEST_MY_RATINGS_FAILED
 } from "./rating.actions";
 
@@ -26,7 +26,6 @@ function rating(state: IState = initialState, action: IAction) {
                 errorMessage: null,
             });
         case RECEIVE_MY_RATINGS:
-        case EXECUTE_STORE_MY_RATING_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
                 ratings: action.payload.ratings,

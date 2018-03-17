@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import {API_URL} from "../../api";
 import {
-    EXECUTE_STORE_MY_RATING, executeStoreMyRatingsFailed, executeStoreRatingSuccess, receiveMyRatings,
+    EXECUTE_STORE_MY_RATING, executeStoreMyRatingsFailed, receiveMyRatings,
     REQUEST_MY_RATINGS, requestMyRatings,
     requestMyRatingsFailed
 } from "./rating.actions";

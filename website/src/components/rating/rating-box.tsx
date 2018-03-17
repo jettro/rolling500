@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {Container, Rating} from 'semantic-ui-react';
+import {Container, Rating, Divider} from 'semantic-ui-react';
 import {IHit} from "../search/search.model";
 import {executeStoreRating} from "./rating.actions";
 
@@ -11,24 +11,9 @@ interface IRatingBoxProps {
 }
 
 interface IRatingBoxState {
-    rating: number
 }
 
 class RatingBox extends React.Component<IRatingBoxProps, IRatingBoxState> {
-
-    constructor(props: IRatingBoxProps) {
-        super(props);
-
-        this.state = {
-            rating: this.props.ratings[this.props.hit.sequence]
-        };
-    }
-
-
-
-    componentWillReceiveProps() {
-        console.log("Now we receive new props");
-    }
 
     giveRating = (event:any,rating: any) => {
         this.props.storeRating(this.props.hit, rating.rating);
@@ -41,7 +26,8 @@ class RatingBox extends React.Component<IRatingBoxProps, IRatingBoxState> {
     render() {
         return (
             <Container>
-                <p>Please give us your rating for this album from: {this.props.hit.artist} {this.whatRating()}</p>
+                <Divider horizontal>Your Rating</Divider>
+                <p>Please give us your rating for this album. Does not have to do anything with what you searched for.</p>
                 <Rating icon='star' rating={this.whatRating()} maxRating={5} onRate={this.giveRating}/>
             </Container>
         );
