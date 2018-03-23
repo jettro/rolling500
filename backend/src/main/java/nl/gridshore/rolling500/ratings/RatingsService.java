@@ -1,12 +1,10 @@
 package nl.gridshore.rolling500.ratings;
 
-import eu.luminis.elastic.document.DocumentService;
 import eu.luminis.elastic.document.IndexRequest;
 import eu.luminis.elastic.document.QueryByIdNotFoundException;
 import eu.luminis.elastic.document.QueryByIdRequest;
 import eu.luminis.elastic.document.SingleClusterDocumentService;
 import eu.luminis.elastic.search.SearchByTemplateRequest;
-import eu.luminis.elastic.search.SearchService;
 import eu.luminis.elastic.search.SingleClusterSearchService;
 import eu.luminis.elastic.search.response.HitsResponse;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,0 +1,24 @@
+{
+    "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "type": {
+              "value": "click"
+            }
+          }
+        },
+        {
+          "term": {
+            "query_id": {
+              "value": "{{ query_id }}"
+            }
+          }
+        }
+      ]
+    }
+  },
+    "from": {{ default(from, 0) }},
+    "size": {{ default(size, 1000) }}
+}

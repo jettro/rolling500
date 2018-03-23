@@ -1,0 +1,11 @@
+{
+    "query": {
+      "term": {
+        "type": {
+          "value": "query"
+        }
+      }
+    },
+    "from": {{ default(from, 0) }},
+    "size": {{ default(size, 1000) }}
+}

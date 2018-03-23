@@ -14,6 +14,11 @@
                 <Pattern>%m%n</Pattern>
             </PatternLayout>
         </File>
+        <File name="StatsFile" fileName="logs/stats.log">
+            <PatternLayout>
+                <Pattern>%m%n</Pattern>
+            </PatternLayout>
+        </File>
     </Appenders>
     <Loggers>
         <Logger name="QUERY_LOGGER" level="INFO" additivity="false">
@@ -21,6 +26,9 @@
         </Logger>
         <Logger name="CLICKS_LOGGER" level="INFO" additivity="false">
             <AppenderRef ref="ClickStatsFile"/>
+        </Logger>
+        <Logger name="STATS_LOGGER" level="INFO" additivity="false">
+            <AppenderRef ref="StatsFile"/>
         </Logger>
         <Root level="info">
             <AppenderRef ref="Console"/>

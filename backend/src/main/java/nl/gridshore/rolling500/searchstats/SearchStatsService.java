@@ -16,6 +16,7 @@ import java.util.List;
 public class SearchStatsService {
     private static final Logger QUERY_LOGGER = LoggerFactory.getLogger("QUERY_LOGGER");
     private static final Logger CLICK_LOGGER = LoggerFactory.getLogger("CLICKS_LOGGER");
+    private static final Logger STATS_LOGGER = LoggerFactory.getLogger("STATS_LOGGER");
 
     public void logSearchStats(SearchRequest request, List<String> foundIds, long totalHits, String queryId,
                                String userId) {
@@ -31,7 +32,7 @@ public class SearchStatsService {
         );
 
         if (QUERY_LOGGER.isInfoEnabled()) {
-            QUERY_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
+            QUERY_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), ""));
         }
     }
 
@@ -46,4 +47,11 @@ public class SearchStatsService {
             CLICK_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
         }
     }
+
+    public void logStats(String text) {
+        if (STATS_LOGGER.isInfoEnabled()) {
+            STATS_LOGGER.info(text);
+        }
+    }
+
 }
