@@ -59,7 +59,7 @@ public class SearchStatsController {
             int foundIndex = -1;
             for (int index = 0; index < clicks.size(); index++) {
                 click = clicks.get(index);
-                if (click.getTerm().equalsIgnoreCase(request.getSearchString())) {
+                if (click.getTerm() != null && click.getTerm().equalsIgnoreCase(request.getSearchString())) {
                     click.setClicks(click.getClicks() + 1);
                     foundIndex = index;
                     break;
