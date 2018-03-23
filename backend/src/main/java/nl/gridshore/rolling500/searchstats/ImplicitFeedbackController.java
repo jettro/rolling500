@@ -15,13 +15,13 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/generateClickAggregations")
-public class ClickAggregationController {
+public class ImplicitFeedbackController {
 
     private ImplicitFeedbackService implicitFeedbackService;
     private SearchStatsService searchStatsService;
 
     @Autowired
-    public ClickAggregationController(ImplicitFeedbackService implicitFeedbackService, SearchStatsService searchStatsService) {
+    public ImplicitFeedbackController(ImplicitFeedbackService implicitFeedbackService, SearchStatsService searchStatsService) {
         this.implicitFeedbackService = implicitFeedbackService;
         this.searchStatsService = searchStatsService;
     }
@@ -52,7 +52,7 @@ public class ClickAggregationController {
                 term + "\t" +
                 0 + "\t" +
                 0 + "\t" +
-                "[" + feedbackQuery.getAlbumIds().stream().collect(Collectors.joining(",")) + "]" + "\t" +
+                "[" + feedbackQuery.getAlbumIds().stream().map(String::toString).collect(Collectors.joining(",")) + "]" + "\t" +
                 "[" + clicksTracker.stream().map(e -> "false").collect(Collectors.joining(",")) + "]" + "\t" +
                 "[" + clicksTracker.stream().collect(Collectors.joining(",")) + "]" + "\t";
     }
