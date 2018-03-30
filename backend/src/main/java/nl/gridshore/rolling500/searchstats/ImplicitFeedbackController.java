@@ -52,7 +52,7 @@ public class ImplicitFeedbackController {
                 term + "\t" +
                 0 + "\t" +
                 0 + "\t" +
-                "[" + feedbackQuery.getAlbumIds().stream().map(String::toString).collect(Collectors.joining(",")) + "]" + "\t" +
+                "[" + feedbackQuery.getAlbumIds().stream().map(albumId -> "\"" + albumId + "\"").collect(Collectors.joining(",")) + "]" + "\t" +
                 "[" + clicksTracker.stream().map(e -> "false").collect(Collectors.joining(",")) + "]" + "\t" +
                 "[" + clicksTracker.stream().collect(Collectors.joining(",")) + "]" + "\t";
     }
