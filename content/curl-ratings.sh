@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl -XPUT "http://localhost:19200/ratings-20170319103826" -H 'Content-Type: application/json' -d'
+curl -XPUT "http://localhost:19200/ratings" -H 'Content-Type: application/json' -d'
 {
   "settings": {
     "number_of_replicas": 0,

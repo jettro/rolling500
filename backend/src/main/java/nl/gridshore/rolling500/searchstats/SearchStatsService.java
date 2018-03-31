@@ -32,7 +32,7 @@ public class SearchStatsService {
         );
 
         if (QUERY_LOGGER.isInfoEnabled()) {
-            QUERY_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), ""));
+            QUERY_LOGGER.info(StringUtils.arrayToDelimitedString(stats.toArray(), "#"));
         }
     }
 

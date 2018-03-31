@@ -35,6 +35,7 @@ logQuery = {
     }
 }
 
+
 def featureDictToList(ranklibLabeledFeatures):
     rVal = [0.0] * len(ranklibLabeledFeatures)
     for idx, logEntry in enumerate(ranklibLabeledFeatures):
@@ -44,7 +45,6 @@ def featureDictToList(ranklibLabeledFeatures):
         except IndexError:
             print("Out of range %s" % idx)
     return rVal
-
 
 
 def logFeatures(es, judgmentsByQid):
@@ -79,11 +79,11 @@ def buildFeaturesJudgmentsFile(judgmentsWithFeatures, filename):
                 judgmentFile.write(judgment.toRanklibFormat() + "\n")
 
 
-if __name__ == "__main__":
-    from judgments import judgmentsFromFile, judgmentsByQid
-    from utils import Elasticsearch
-    es = Elasticsearch()
-    judgmentsByQid = judgmentsByQid(judgmentsFromFile('rolling500_judgments.txt'))
-    logFeatures(es, judgmentsByQid)
-    buildFeaturesJudgmentsFile(judgmentsByQid, "rolling500_judgments_wfeatures.txt")
+# if __name__ == "__main__":
+#     from judgments import judgmentsFromFile, judgmentsByQid
+#     from utils import Elasticsearch
+#     es = Elasticsearch()
+#     judgmentsByQid = judgmentsByQid(judgmentsFromFile('rolling500_judgments.txt'))
+#     logFeatures(es, judgmentsByQid)
+#     buildFeaturesJudgmentsFile(judgmentsByQid, "rolling500_judgments_wfeatures.txt")
 

@@ -24,19 +24,19 @@ def eachFeature():
         pass
 
 
-def loadFeatures(featureSetName='rolling_features_1'):
-    featureSet = {
+def loadFeatures(feature_set_name):
+    feature_set = {
         "featureset": {
-            "name": featureSetName,
+            "name": feature_set_name,
             "features": [feature for feature in eachFeature()]
         }
     }
-    path = "_ltr/_featureset/%s" % featureSetName
+    path = "_ltr/_featureset/%s" % feature_set_name
     fullPath = urljoin(ES_HOST, path)
     print("POST %s" % fullPath)
-    print(json.dumps(featureSet, indent=2))
+    print(json.dumps(feature_set, indent=2))
     head = {'Content-Type': 'application/json'}
-    resp = requests.post(fullPath, data=json.dumps(featureSet), headers=head, auth=ES_AUTH)
+    resp = requests.post(fullPath, data=json.dumps(feature_set), headers=head, auth=ES_AUTH)
     print("%s" % resp.status_code)
     print("%s" % resp.text)
 

@@ -49,16 +49,21 @@ if __name__ == "__main__":
     import configparser
     from judgments import judgmentsFromFile, judgmentsByQid
 
+    # judgment_filename = 'rolling500_judgments.txt'
+    judgment_filename = 'implicit_judgements.txt'
+    judgment_features_filename = 'rolling500_judgments_wfeatures.txt'
+    featureset_name = 'rolling_features_1'
+
     es = Elasticsearch(timeout=1000)
     # Load features into Elasticsearch
     initDefaultStore()
-    loadFeatures()
+    loadFeatures(featureset_name)
     # Parse a judgments
-    rollingJudgments = judgmentsByQid(judgmentsFromFile(filename='rolling500_judgments.txt'))
+    rollingJudgments = judgmentsByQid(judgmentsFromFile(filename=judgment_filename))
     # Use proposed Elasticsearch queries (1.json.jinja ... N.json.jinja) to generate a training set
     # output as "sample_judgments_wfeatures.txt"
     logFeatures(es, judgmentsByQid=rollingJudgments)
-    buildFeaturesJudgmentsFile(rollingJudgments, filename='rolling500_judgments_wfeatures.txt')
+    buildFeaturesJudgmentsFile(rollingJudgments, filename=judgment_features_filename)
     # Train each ranklib model type
     for modelType in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
         # 0, MART
@@ -72,6 +77,6 @@ if __name__ == "__main__":
         # 9, Linear Regression
         print("*** Training %s " % modelType)
         modelOutput = 'model' + str(modelType) + '.txt'
-        trainModel(judgmentsWithFeaturesFile='rolling500_judgments_wfeatures.txt', modelOutput=modelOutput,
+        trainModel(judgmentsWithFeaturesFile=judgment_features_filename, modelOutput=modelOutput,
                    whichModel=modelType)
-        saveModel(scriptName="test_%s" % modelType, featureSet='rolling_features_1', modelFname=modelOutput)
+        saveModel(scriptName="test_%s" % modelType, featureSet=featureset_name, modelFname=modelOutput)
