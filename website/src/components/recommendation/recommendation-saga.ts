@@ -16,6 +16,7 @@ function* findRecommendedAlbums(action: { type: string, payload: any}) {
             iHit.image = album.image;
             iHit.sequence = album.sequence;
             iHit.year = album.year;
+            iHit.score = album.score;
             return iHit;
         });
         const result = new IHits();

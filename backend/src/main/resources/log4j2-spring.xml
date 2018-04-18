@@ -30,6 +30,9 @@
         <Logger name="STATS_LOGGER" level="INFO" additivity="false">
             <AppenderRef ref="StatsFile"/>
         </Logger>
+        <Logger name="org.grouplens.grapht.solver.DependencySolver" level="WARN">
+            <AppenderRef ref="Console"/>
+        </Logger>
         <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>

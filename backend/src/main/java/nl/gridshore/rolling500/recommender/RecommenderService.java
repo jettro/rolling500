@@ -109,16 +109,16 @@ public class RecommenderService {
         // For now we obtain the ratings on each question
         List<Rating> foundRatings = ratingsService.listAllRatings();
 
-        List<MutableRating> ratings = new ArrayList<MutableRating>();
+        List<MutableRating> ratings = new ArrayList<>();
 
         foundRatings.forEach(rating -> {
             String userIdString = rating.getUserId();
 
-            long userId = (this.userIdMapping.containsKey(userIdString)) ? this.userIdMapping.get(userIdString) : userId();
-            this.userIdMapping.put(userIdString, userId);
+            long curUser = (this.userIdMapping.containsKey(userIdString)) ? this.userIdMapping.get(userIdString) : userId();
+            this.userIdMapping.put(userIdString, curUser);
             for (int i = 0; i < rating.getRatings().length; i++) {
                 if (rating.getRatings()[i] > 0) {
-                    ratings.add(createRating(i, rating.getRatings()[i], userId));
+                    ratings.add(createRating(i, rating.getRatings()[i], curUser));
                 }
             }
         });

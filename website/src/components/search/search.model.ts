@@ -21,6 +21,7 @@ export class IHit {
     label: string;
     order: number;
     sequence: number;
+    score: number;
 }
 
 export class LtrModel {

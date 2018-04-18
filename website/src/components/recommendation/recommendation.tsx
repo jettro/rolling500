@@ -63,6 +63,9 @@ class Recommendation extends React.Component<IRecommendationProps, IRecommendati
                                         <Card.Meta>{hit.artist}({hit.year})</Card.Meta>
                                         <Card.Description><RatingBox hit={hit}/></Card.Description>
                                     </Card.Content>
+                                    <Card.Content extra>
+                                        Score: {hit.score.toFixed(2)}
+                                    </Card.Content>
                                 </Card>
                             );
                         }) :
