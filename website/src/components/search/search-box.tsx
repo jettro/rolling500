@@ -61,9 +61,14 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
                     <Card.Content>
                         <Card.Header>
                             <Form onSubmit={this.handleExecuteSearch}>
-                                <Form.Input icon={{name: 'search', circular: true}} placeholder='Search ...'
-                                            onChange={this.handleSearchChange}/>
-                                <Form.Radio toggle onChange={this.toggleLtr} label='Enable Learning To Rank' content='test'/>
+                                <Form.Group inline>
+                                    <Form.Input placeholder='Search ...' width={12}
+                                                onChange={this.handleSearchChange} focus/>
+                                    <Form.Button basic circular color='blue' icon='search'
+                                                 onClick={this.handleExecuteSearch}/>
+                                </Form.Group>
+                                <Form.Radio toggle onChange={this.toggleLtr} label='Enable Learning To Rank'
+                                            content='test'/>
                             </Form>
                         </Card.Header>
                         <SearchResultsList hits={this.props.hits.hits} selectItem={this.handleItemClick}/>

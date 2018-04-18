@@ -49,8 +49,8 @@ if __name__ == "__main__":
     import configparser
     from judgments import judgmentsFromFile, judgmentsByQid
 
-    # judgment_filename = 'rolling500_judgments.txt'
-    judgment_filename = 'implicit_judgements.txt'
+    judgment_filename = 'rolling500_judgments.txt'
+    # judgment_filename = 'implicit_judgements.txt'
     judgment_features_filename = 'rolling500_judgments_wfeatures.txt'
     featureset_name = 'rolling_features_1'
 

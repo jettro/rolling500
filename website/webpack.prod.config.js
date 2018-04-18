@@ -32,7 +32,8 @@ module.exports = {
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env': {
-				NODE_ENV: JSON.stringify('production')
+				NODE_ENV: JSON.stringify('production'),
+                API_URL: JSON.stringify('https://rolling500.luminis.amsterdam')
 			}
 		}),
 		new ExtractTextPlugin("[name].[contenthash:8].css"),

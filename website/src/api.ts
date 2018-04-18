@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-let backendHost: string = 'http://localhost:8080/api';
+let backendHost: string = process.env.API_URL;
 
-axios.defaults.baseURL = `${backendHost}`;
+axios.defaults.baseURL = `${backendHost}/api`;
 
 export const API_URL = {
     SEARCH: 'albums/search',
@@ -13,6 +13,6 @@ export const API_URL = {
     RECOMMEND_ALBUMS: 'recommender/user'
 };
 
-export const IMG_URL = 'http://localhost:8080/images/';
+export const IMG_URL = `${backendHost}/images/`;
 
 

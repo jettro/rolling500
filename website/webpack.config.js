@@ -49,7 +49,7 @@ module.exports = function (env) {
                 template: 'index.html'
             }),
             new webpack.DefinePlugin({
-                'process.env.API_URL': JSON.stringify((env === 'prod') ? 'http://localhost:8080' : 'http://localhost:9000')
+                'process.env.API_URL': JSON.stringify((env === 'prod') ? 'https://rolling500.luminis.amsterdam' : 'http://localhost:8080')
             })
         ],
         devServer: {
