@@ -6,7 +6,7 @@ from utils import Elasticsearch, ES_HOST, ES_AUTH
 
 def trainModel(judgmentsWithFeaturesFile, modelOutput, whichModel=6):
     # java -jar RankLib-2.6.jar -ranker 6 -train sample_judgments_wfeatures.txt -save model.txt
-    cmd = "java -jar RankLib-2.8.jar -ranker %s -train %s -save %s -frate 1.0  -metric2t MAP" % (
+    cmd = "java -jar RankLib-2.8.jar -ranker %s -train %s -save %s -frate 1.0  -metric2t NDCG@10" % (
     whichModel, judgmentsWithFeaturesFile, modelOutput)
     print("*********************************************************************")
     print("*********************************************************************")

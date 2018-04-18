@@ -9,6 +9,8 @@ export const API_URL = {
     POST_CLICK: 'searchstats',
     MODELS: 'albums/ltrmodels',
     MY_RATINGS: 'rating',
+    RANDOM_ALBUMS: 'albums/random',
+    RECOMMEND_ALBUMS: 'recommender/user'
 };
 
 export const IMG_URL = 'http://localhost:8080/images/';

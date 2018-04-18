@@ -7,6 +7,10 @@ export const RECEIVE_MY_RATINGS = 'RECEIVE_MY_RATINGS';
 export const EXECUTE_STORE_MY_RATING = 'EXECUTE_STORE_MY_RATING';
 export const EXECUTE_STORE_MY_RATING_FAILED = 'EXECUTE_STORE_MY_RATING_FAILED';
 
+export const REQUEST_RANDOM_ALBUMS = 'REQUEST_RANDOM_ALBUMS';
+export const RECEIVE_RANDOM_ALBUMS = 'RECEIVE_RANDOM_ALBUMS';
+export const REQUEST_RANDOM_ALBUMS_FAILED = 'REQUEST_RANDOM_ALBUMS_FAILED';
+
 export function requestMyRatings() {
     return {
         type: REQUEST_MY_RATINGS,
@@ -45,6 +49,31 @@ export function executeStoreRating(hit: IHit, rating: number) {
 export function executeStoreMyRatingsFailed(e: Error) {
     return {
         type: EXECUTE_STORE_MY_RATING_FAILED,
+        payload: {
+            errorMessage: e.message
+        }
+    }
+}
+
+export function requestRandomAlbums() {
+    return {
+        type: REQUEST_RANDOM_ALBUMS,
+        payload: {}
+    }
+}
+
+export function receiveRandomAlbums(results: any) {
+    return {
+        type: RECEIVE_RANDOM_ALBUMS,
+        payload: {
+            albums: results
+        }
+    }
+}
+
+export function requestRandomAlbumsFailed(e: Error) {
+    return {
+        type: REQUEST_RANDOM_ALBUMS_FAILED,
         payload: {
             errorMessage: e.message
         }

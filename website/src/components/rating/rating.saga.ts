@@ -3,10 +3,11 @@ import axios from 'axios';
 
 import {API_URL} from "../../api";
 import {
-    EXECUTE_STORE_MY_RATING, executeStoreMyRatingsFailed, receiveMyRatings,
-    REQUEST_MY_RATINGS, requestMyRatings,
-    requestMyRatingsFailed
+    EXECUTE_STORE_MY_RATING, executeStoreMyRatingsFailed, receiveMyRatings, receiveRandomAlbums,
+    REQUEST_MY_RATINGS, REQUEST_RANDOM_ALBUMS, requestMyRatings,
+    requestMyRatingsFailed, requestRandomAlbumsFailed
 } from "./rating.actions";
+import {IHit, IHits} from "../search/search.model";
 
 
 function* fetchMyRatings(action: { type: string, payload: any }) {
@@ -46,9 +47,28 @@ function* storeMyRatings(action: {type: string, payload: any}) {
     }
 }
 
+function* findRandomAlbums(action: { type: string, payload: any}) {
+    try {
+        const results = yield call(axios.get, `${API_URL.RANDOM_ALBUMS}`);
+        const albums: Array<IHit> = results.data.map((album: any) => {
+            let iHit = new IHit(album.id, album.album, album.artist, album.information);
+            iHit.image = album.image;
+            iHit.sequence = album.sequence;
+            iHit.year = album.year;
+            return iHit;
+        });
+        const result = new IHits();
+        result.hits = albums;
+        yield put(receiveRandomAlbums(result));
+    } catch(e) {
+        yield put(requestRandomAlbumsFailed(e));
+    }
+}
+
 function* ratingSaga() {
     yield takeEvery(REQUEST_MY_RATINGS, fetchMyRatings);
     yield takeEvery(EXECUTE_STORE_MY_RATING, storeMyRatings);
+    yield takeEvery(REQUEST_RANDOM_ALBUMS, findRandomAlbums)
 }
 
 export default ratingSaga;

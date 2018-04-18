@@ -53,4 +53,9 @@ public class AlbumsController {
     public List<LtrModel> obtainAvailableModels() {
         return albumService.findLtrModels();
     }
+
+    @GetMapping("/random")
+    public List<Album> obtainRandomAlbums() {
+        return albumService.findRandomAlbums();
+    }
 }

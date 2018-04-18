@@ -5,9 +5,10 @@ import { Search } from './components/search/search';
 
 import { Container, Divider, List, Segment } from 'semantic-ui-react';
 import {SearchCompare} from "./components/search/search-compare";
-import {executeSearch, registerSearchClick} from "./components/search/search.actions";
 import {connect} from "react-redux";
 import {requestMyRatings} from "./components/rating/rating.actions";
+import RatingRater from "./components/rating/rating-rater";
+import Recommendation from "./components/recommendation/recommendation";
 
 interface IAppProps {
     fetchRatings: any
@@ -28,6 +29,8 @@ class App extends React.Component<IAppProps, null> {
                     <Container style={{ marginTop: '7em' }}>
                         <Route exact path="/" component={Search} />
                         <Route exact path="/compare" component={SearchCompare} />
+                        <Route exact path="/rate" component={RatingRater} />
+                        <Route exact path="/recommendation" component={Recommendation} />
                     </Container>
 
 

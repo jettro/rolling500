@@ -22,6 +22,12 @@ export class PageHeader extends React.Component<IHeader, {}> {
                     <Menu.Item as={Link} header name="searchcompare" to="/compare">
                         Search compare
                     </Menu.Item>
+                    <Menu.Item as={Link} header name="rate" to="/rate">
+                        Rate items
+                    </Menu.Item>
+                    <Menu.Item as={Link} header name="recommendation" to="/recommendation">
+                        Recommendations
+                    </Menu.Item>
                 </Container>
             </Menu>
         );

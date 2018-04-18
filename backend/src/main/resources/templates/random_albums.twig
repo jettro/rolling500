@@ -1,0 +1,12 @@
+{
+    "query": {
+        "function_score": {
+            "query": {
+                "match_all": {}
+            },
+            "random_score": {},
+            "boost_mode": "replace"
+        }
+    },
+    "size": {{ default(size, 10) }}
+}

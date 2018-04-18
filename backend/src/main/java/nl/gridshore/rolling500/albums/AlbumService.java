@@ -162,4 +162,16 @@ public class AlbumService {
                 new LtrModel("test_9", "Linear Regression")
         );
     }
+
+    public List<Album> findRandomAlbums() {
+        SearchByTemplateRequest request = SearchByTemplateRequest.create()
+                .setIndexName(INDEX)
+                .setTemplateName("random_albums.twig")
+                .setAddId(false)
+                .setTypeReference(new AlbumEntityTypeReference());
+
+        HitsResponse<Album> objectHitsResponse = searchService.queryByTemplate(request);
+
+        return objectHitsResponse.getHits();
+    }
 }
