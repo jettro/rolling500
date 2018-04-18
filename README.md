@@ -1,0 +1,2 @@
+# rolling500
+This repository contains a sample application I have used during presentations related to Learning To Rank and Recommendation. The backend is created with Spring Boot. There are two frontends, however, the angular based component is no longer maintained. Use the ReactJs based one. This is the module called website. The folder content contains some handy scripts and logstash config files.
