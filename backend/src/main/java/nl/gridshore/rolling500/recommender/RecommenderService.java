@@ -24,6 +24,8 @@ import org.grouplens.lenskit.transform.threshold.RealThreshold;
 import org.grouplens.lenskit.transform.threshold.Threshold;
 import org.grouplens.lenskit.vectors.similarity.CosineVectorSimilarity;
 import org.grouplens.lenskit.vectors.similarity.VectorSimilarity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class RecommenderService {
+    private static final Logger logger = LoggerFactory.getLogger(RecommenderService.class);
 
     public static final int NUM_RECOMMENDATIONS = 5;
     public static final double THRESHOLD_SIMILARITY = 0;
@@ -58,6 +61,10 @@ public class RecommenderService {
                 return new ArrayList<>();
             }
             List<ScoredId> recommended = irec.recommend(userIdMapping.get(userId), NUM_RECOMMENDATIONS);
+
+            if (recommended.isEmpty()) {
+                logger.info("No recommendations found for user {}", userId);
+            }
 
             return recommended.stream()
                     .map(scoredId -> new RecommendedItem(scoredId.getId(), scoredId.getScore()))
