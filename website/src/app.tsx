@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PageHeader from './components/header/header';
 import { Search } from './components/search/search';
 
-import { Container, Divider, List, Segment } from 'semantic-ui-react';
+import {Container, Divider, List, Responsive, Segment} from 'semantic-ui-react';
 import {SearchCompare} from "./components/search/search-compare";
 import {connect} from "react-redux";
 import {requestMyRatings} from "./components/rating/rating.actions";
 import RatingRater from "./components/rating/rating-rater";
 import Recommendation from "./components/recommendation/recommendation";
+import {Dashboard} from "./components/dashboard/dashboard";
 
 interface IAppProps {
     fetchRatings: any
@@ -26,16 +27,16 @@ class App extends React.Component<IAppProps, null> {
                 <div>
                     <PageHeader />
 
-                    <Container style={{ marginTop: '7em' }}>
-                        <Route exact path="/" component={Search} />
+                    <Container style={{ marginTop: '1em' }}>
+                        <Responsive as={Container} style={{marginTop: '4em'}} minWidth={Responsive.onlyMobile.maxWidth} />
+                        <Route exact path="/" component={Dashboard}/>
+                        <Route exact path="/search" component={Search} />
                         <Route exact path="/compare" component={SearchCompare} />
                         <Route exact path="/rate" component={RatingRater} />
                         <Route exact path="/recommendation" component={Recommendation} />
                     </Container>
 
-
-                    <Segment
-                        vertical
+                    <Container
                         style={{ margin: '5em 0em 0em', padding: '5em 0em' }}
                     >
                         <Container textAlign="center">
@@ -55,7 +56,7 @@ class App extends React.Component<IAppProps, null> {
                                 </List.Item>
                             </List>
                         </Container>
-                    </Segment>
+                    </Container>
                 </div>
             </Router>
         );
