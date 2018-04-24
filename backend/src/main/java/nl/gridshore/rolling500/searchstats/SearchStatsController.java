@@ -38,7 +38,7 @@ public class SearchStatsController {
     public String sendClick(@RequestBody ClickRegistrationRequest request) {
         long albumId = request.getAlbumId();
 
-        searchStatsService.logClickStat(request.getQueryId(), albumId, request.getUserId());
+        searchStatsService.logClickStat(request.getQueryId(), albumId, request.getUserId(), request.getPosition());
 
         Album album = albumService.findAlbumById(albumId);
         if (album != null) {

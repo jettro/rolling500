@@ -40,6 +40,9 @@ curl -XPUT "http://localhost:9200/implicitfeedback" -H 'Content-Type: applicatio
         },
         "request_size": {
           "type": "long"
+        },
+        "position": {
+          "type": "integer"
         }
       }
     }

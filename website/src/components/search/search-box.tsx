@@ -25,7 +25,7 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         this.state = {
             searchString: '',
             selectedHit: null,
-            enableLtr: false
+            enableLtr: false,
         };
     }
 
@@ -39,13 +39,13 @@ class SearchBox extends React.Component<ISearchBoxProps, ISearchBoxState> {
         this.props.fetchSearchResults(this.state.searchString, this.state.enableLtr);
     };
 
-    handleItemClick = (item: IHit) => {
+    handleItemClick = (item: IHit, position: number) => {
         this.setState({
             searchString: this.state.searchString,
             selectedHit: item,
             enableLtr: this.state.enableLtr,
         });
-        this.props.registerClick(item.id, this.props.hits.queryId, this.state.searchString);
+        this.props.registerClick(item.id, this.props.hits.queryId, this.state.searchString, position);
     };
 
     toggleLtr = (event: any) => {
@@ -97,7 +97,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: Function) => ({
     fetchSearchResults: (searchString: string, enableLtr: boolean) => dispatch(executeSearch(searchString, enableLtr)),
-    registerClick: (albumId: number, queryId: string, searchString: string) => dispatch(registerSearchClick(albumId, queryId, searchString)),
+    registerClick: (albumId: number, queryId: string, searchString: string, position: number) => dispatch(registerSearchClick(albumId, queryId, searchString, position)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

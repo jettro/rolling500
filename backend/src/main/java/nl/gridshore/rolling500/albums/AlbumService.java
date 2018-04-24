@@ -135,7 +135,7 @@ public class AlbumService {
     public List<Album> findAlbumBySequenceId(List<Long> ids) {
         Map<String, Object> params = new HashMap<>();
         params.put("ids", ids);
-        params.put("size", 5);
+        params.put("size", ids.size());
 
         SearchByTemplateRequest request = SearchByTemplateRequest.create()
                 .setIndexName(INDEX)

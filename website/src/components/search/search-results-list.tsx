@@ -10,21 +10,21 @@ interface ISearchResultsListProps {
 
 export const SearchResultsList: React.StatelessComponent<ISearchResultsListProps> = ({hits, selectItem}) => {
 
-    const handleItemClick = (hit: IHit) => {
+    const handleItemClick = (hit: IHit, position: number) => {
         if (selectItem) {
-            selectItem(hit);
+            selectItem(hit, position + 1); // prevent the zero based list, I want first item to be 1
         }
     };
 
     return (
         <List divided relaxed>
-            {hits ? hits.map((hit: IHit) => {
+            {hits ? hits.map((hit: IHit, index: number) => {
                     return (
-                        <List.Item key={hit.id} onClick={() => handleItemClick(hit)}>
+                        <List.Item key={hit.id} onClick={() => handleItemClick(hit, index)}>
                             <Image src={IMG_URL + 'thumbnails/' + hit.image} avatar/>
                             <List.Content>
                                 <List.Header>{hit.album}</List.Header>
-                                < List.Description>{hit.artist}</List.Description>
+                                <List.Description>{hit.artist}</List.Description>
                             </List.Content>
                         </List.Item>
                     );

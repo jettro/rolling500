@@ -68,13 +68,14 @@ export function executeDoubleSearchFailed(e: Error) {
 }
 
 
-export function registerSearchClick(albumId: number, queryId: string, searchString: string) {
+export function registerSearchClick(albumId: number, queryId: string, searchString: string, position: number) {
     return {
         type: REGISTER_SEARCH_CLICK,
         payload: {
             albumId: albumId,
             queryId: queryId,
             searchString: searchString,
+            position: position,
         }
     }
 }

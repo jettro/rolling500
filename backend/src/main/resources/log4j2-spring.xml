@@ -14,6 +14,11 @@
                 <Pattern>%m%n</Pattern>
             </PatternLayout>
         </File>
+        <File name="RecommendStatsFile" fileName="logs/recommend_stats.log">
+            <PatternLayout>
+                <Pattern>%m%n</Pattern>
+            </PatternLayout>
+        </File>
         <File name="StatsFile" fileName="logs/stats.log">
             <PatternLayout>
                 <Pattern>%m%n</Pattern>
@@ -21,6 +26,9 @@
         </File>
     </Appenders>
     <Loggers>
+        <Logger name="RECOMMEND_LOGGER" level="INFO" additivity="false">
+            <AppenderRef ref="RecommendStatsFile"/>
+        </Logger>
         <Logger name="QUERY_LOGGER" level="INFO" additivity="false">
             <AppenderRef ref="QueryStatsFile"/>
         </Logger>
@@ -31,6 +39,9 @@
             <AppenderRef ref="StatsFile"/>
         </Logger>
         <Logger name="org.grouplens.grapht.solver.DependencySolver" level="WARN">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="org.grouplens.lenskit" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
         <Root level="info">
