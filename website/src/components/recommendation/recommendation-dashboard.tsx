@@ -52,13 +52,17 @@ class RecommendationDashboard extends React.Component<IRecommendationDashboardPr
                     </Statistic>
                 </Statistic.Group>
                 <BarChart width={600} height={400} data={this.props.statistics.albumStatistics.reverse().splice(0,10)}
-                          margin={{top: 50, right: 30, left: 20, bottom: 50}}>
+                          margin={{top: 15, right: 30, left: 20, bottom: 20}}>
                     <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="sequence"/>
-                    <YAxis />
+                    <XAxis dataKey="sequence">
+                        <Label value="Albums by sequence" offset={0} position="bottom" />
+                    </XAxis>
+                    <YAxis>
+                        <Label value="Times recommended" angle={-90} position="insideLeft"/>
+                    </YAxis>
                     <Tooltip/>
                     <Legend />
-                    <Bar dataKey="numberOfRecommendations" fill="#8884d8"><Label position="bottom">Test</Label></Bar>
+                    <Bar dataKey="numberOfRecommendations" fill="#8884d8" legendType="none"/>
                 </BarChart>
             </Container>
         )
