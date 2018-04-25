@@ -23,6 +23,9 @@ export class MenuItems extends React.Component {
                 <Menu.Item as={Link} header name="recommendation" to="/recommendation">
                     Recommendations
                 </Menu.Item>
+                <Menu.Item as={Link} header name="statistics" to="/statistics">
+                    Statistics
+                </Menu.Item>
             </Container>
         );
     }

@@ -4,7 +4,15 @@ import axios from 'axios';
 import {API_URL} from "../../api";
 
 import {IHit, IHits} from "../search/search.model";
-import {receiveRecommendations, REQUEST_RECOMMENDATIONS, requestRecommendationsFailed} from "./recommendation-actions";
+import {
+    receiveRecommendationDashboard,
+    receiveRecommendations,
+    REQUEST_RECOMMENDATION_DASHBOARD,
+    REQUEST_RECOMMENDATIONS,
+    requestRecommendationDashboardFailed,
+    requestRecommendationsFailed
+} from "./recommendation-actions";
+import {RecommendationStatistics, RecommendedAlbumStatistics} from "./recommendation-model";
 
 function* findRecommendedAlbums(action: { type: string, payload: any}) {
     try {
@@ -27,8 +35,34 @@ function* findRecommendedAlbums(action: { type: string, payload: any}) {
     }
 }
 
+function* findRecommendationDashboard(action: { type: string, payload: any}) {
+    try {
+        const results = yield call(axios.get, `${API_URL.RECOMMEND_ALBUMS}/_all`);
+        const statistics: RecommendationStatistics = new RecommendationStatistics();
+        statistics.amountOfItemsToRecommend = results.data.amountOfItemsToRecommend;
+        statistics.amountOfUsers = results.data.amountOfUsers;
+        statistics.amountOfUsersWithRecommendations = results.data.amountOfUsersWithRecommendations;
+
+        let albumStats: Array<RecommendedAlbumStatistics> = results.data.sortedAlbumStatistics.map((albumStatistics: any) => {
+            let recAlbumStats: RecommendedAlbumStatistics = new RecommendedAlbumStatistics();
+            recAlbumStats.avgPosition = albumStatistics.avgPosition;
+            recAlbumStats.avgScore = albumStatistics.avgScore;
+            recAlbumStats.sequence = albumStatistics.sequence;
+            recAlbumStats.numberOfRecommendations = albumStatistics.numberOfRecommendations;
+
+            return recAlbumStats;
+        });
+        statistics.albumStatistics = albumStats;
+        yield put(receiveRecommendationDashboard(statistics));
+    } catch(e) {
+        yield put(requestRecommendationDashboardFailed(e));
+    }
+}
+
+
 function* recommendationSaga() {
-    yield takeEvery(REQUEST_RECOMMENDATIONS, findRecommendedAlbums)
+    yield takeEvery(REQUEST_RECOMMENDATIONS, findRecommendedAlbums);
+    yield takeEvery(REQUEST_RECOMMENDATION_DASHBOARD, findRecommendationDashboard);
 }
 
 export default recommendationSaga;

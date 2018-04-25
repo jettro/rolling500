@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 import {requestMyRatings} from "./components/rating/rating.actions";
 import RatingRater from "./components/rating/rating-rater";
 import Recommendation from "./components/recommendation/recommendation";
+import RecommendationDashboard from "./components/recommendation/recommendation-dashboard";
 import {Dashboard} from "./components/dashboard/dashboard";
 
 interface IAppProps {
@@ -34,6 +35,7 @@ class App extends React.Component<IAppProps, null> {
                         <Route exact path="/compare" component={SearchCompare} />
                         <Route exact path="/rate" component={RatingRater} />
                         <Route exact path="/recommendation" component={Recommendation} />
+                        <Route exact path="/statistics" component={RecommendationDashboard} />
                     </Container>
 
                     <Container
