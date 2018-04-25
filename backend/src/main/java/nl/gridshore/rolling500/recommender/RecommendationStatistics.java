@@ -1,5 +1,6 @@
 package nl.gridshore.rolling500.recommender;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class RecommendationStatistics {
 
     public List<RecommendedAlbumStatistics> getSortedAlbumStatistics() {
         return this.allRecommendedAlbumStatistics.values().stream()
-                .sorted((o1, o2) -> (o1.getNumberOfRecommendations() - o2.getNumberOfRecommendations() < 0) ? -1 : 1)
+                .sorted(Comparator.comparingLong(RecommendedAlbumStatistics::getNumberOfRecommendations))
                 .collect(Collectors.toList());
     }
 }

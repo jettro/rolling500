@@ -90,22 +90,9 @@ public class RecommenderService {
             recommended.forEach(scoredId -> {
                 statistics.addRecommendation(scoredId.getId(), 1, scoredId.getScore());
             });
-//                    .map(scoredId -> new RecommendedItem(scoredId.getId(), scoredId.getScore()))
-//                    .collect(Collectors.toList());
         });
 
         return statistics;
-
-        // # users
-        // # users with recommendations
-        // # amount of possible items to recommend?
-        // # amount of items rated
-        // # list of recommended albums
-        // ## the amount of times they have been recommended
-        // ## the average score of the recommendation
-        // ## the average position of the recommendation
-
-//        return obtainAlbumsBySequenceId(recommendedItems);
     }
 
 
