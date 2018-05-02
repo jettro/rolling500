@@ -3,11 +3,20 @@ import axios from 'axios';
 
 import {API_URL} from "../../api";
 import {
-    EXECUTE_STORE_MY_RATING, executeStoreMyRatingsFailed, receiveMyRatings, receiveRandomAlbums,
-    REQUEST_MY_RATINGS, REQUEST_RANDOM_ALBUMS, requestMyRatings,
-    requestMyRatingsFailed, requestRandomAlbumsFailed
+    EXECUTE_STORE_MY_RATING,
+    executeStoreMyRatingsFailed,
+    receiveMyRatings,
+    receiveRandomAlbums,
+    receiveRatingsDistribution,
+    REQUEST_MY_RATINGS,
+    REQUEST_RANDOM_ALBUMS, REQUEST_RATINGS_DISTRIBUTION,
+    requestMyRatings,
+    requestMyRatingsFailed,
+    requestRandomAlbumsFailed,
+    requestRatingsDistributionFailed
 } from "./rating.actions";
 import {IHit, IHits} from "../search/search.model";
+import {RatingDistribution} from "./rating.model";
 
 
 function* fetchMyRatings(action: { type: string, payload: any }) {
@@ -65,10 +74,27 @@ function* findRandomAlbums(action: { type: string, payload: any}) {
     }
 }
 
+function* fetchRatingsDistribution(action: {type: string, payload: any}) {
+    try {
+        const results = yield call(axios.get, `${API_URL.RATINGS_DIST}`);
+
+        const ratingsDist: Array<RatingDistribution> = [];
+        for (let key in results.data.ratings) {
+            let value = results.data.ratings[key];
+            ratingsDist.push(new RatingDistribution(Number(key),value));
+        }
+
+        yield put(receiveRatingsDistribution(ratingsDist))
+    } catch (e) {
+        yield put(requestRatingsDistributionFailed(e));
+    }
+}
+
 function* ratingSaga() {
     yield takeEvery(REQUEST_MY_RATINGS, fetchMyRatings);
     yield takeEvery(EXECUTE_STORE_MY_RATING, storeMyRatings);
-    yield takeEvery(REQUEST_RANDOM_ALBUMS, findRandomAlbums)
+    yield takeEvery(REQUEST_RANDOM_ALBUMS, findRandomAlbums);
+    yield takeEvery(REQUEST_RATINGS_DISTRIBUTION, fetchRatingsDistribution);
 }
 
 export default ratingSaga;

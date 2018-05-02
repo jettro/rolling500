@@ -1,10 +1,18 @@
 import {IAction} from "../../types/action";
 import {
     EXECUTE_STORE_MY_RATING,
-    EXECUTE_STORE_MY_RATING_FAILED, RECEIVE_MY_RATINGS, RECEIVE_RANDOM_ALBUMS, REQUEST_MY_RATINGS,
-    REQUEST_MY_RATINGS_FAILED, REQUEST_RANDOM_ALBUMS, REQUEST_RANDOM_ALBUMS_FAILED
+    EXECUTE_STORE_MY_RATING_FAILED,
+    RECEIVE_MY_RATINGS,
+    RECEIVE_RANDOM_ALBUMS, RECEIVE_RATINGS_DISTRIBUTION,
+    REQUEST_MY_RATINGS,
+    REQUEST_MY_RATINGS_FAILED,
+    REQUEST_RANDOM_ALBUMS,
+    REQUEST_RANDOM_ALBUMS_FAILED,
+    REQUEST_RATINGS_DISTRIBUTION,
+    REQUEST_RATINGS_DISTRIBUTION_FAILED
 } from "./rating.actions";
 import {IHits} from "../search/search.model";
+import {RatingDistribution} from "./rating.model";
 
 class IState {
     isFetching: boolean;
@@ -12,6 +20,8 @@ class IState {
     errorMessage: string;
     isFetchingAlbums: boolean;
     albums: IHits;
+    isFetchingRatingsDistribution: boolean;
+    ratingsDistribution: Array<RatingDistribution>;
 }
 
 const initialState: IState = {
@@ -20,6 +30,8 @@ const initialState: IState = {
     errorMessage: null,
     isFetchingAlbums: false,
     albums: new IHits(),
+    isFetchingRatingsDistribution: false,
+    ratingsDistribution: []
 };
 
 function rating(state: IState = initialState, action: IAction) {
@@ -54,6 +66,22 @@ function rating(state: IState = initialState, action: IAction) {
         case REQUEST_RANDOM_ALBUMS_FAILED:
             return Object.assign({}, state, {
                 isFetchingAlbums: false,
+                errorMessage: action.payload.errorMessage,
+            });
+
+        case REQUEST_RATINGS_DISTRIBUTION:
+            return Object.assign({}, state, {
+                isFetchingRatingsDistribution: true,
+                errorMessage: null
+            });
+        case RECEIVE_RATINGS_DISTRIBUTION:
+            return Object.assign({}, state, {
+                isFetchingRatingsDistribution: false,
+                ratingsDistribution: action.payload.ratingsDistribution,
+            });
+        case REQUEST_RATINGS_DISTRIBUTION_FAILED:
+            return Object.assign({}, state, {
+                isFetchingRatingsDistribution: false,
                 errorMessage: action.payload.errorMessage,
             });
         default:

@@ -11,6 +11,10 @@ export const REQUEST_RANDOM_ALBUMS = 'REQUEST_RANDOM_ALBUMS';
 export const RECEIVE_RANDOM_ALBUMS = 'RECEIVE_RANDOM_ALBUMS';
 export const REQUEST_RANDOM_ALBUMS_FAILED = 'REQUEST_RANDOM_ALBUMS_FAILED';
 
+export const REQUEST_RATINGS_DISTRIBUTION = 'REQUEST_RATINGS_DISTRIBUTION';
+export const RECEIVE_RATINGS_DISTRIBUTION = 'RECEIVE_RATINGs_DISTRIBUTION';
+export const REQUEST_RATINGS_DISTRIBUTION_FAILED = 'REQUEST_RATINGS_DISTRIBUTION_FAILED';
+
 export function requestMyRatings() {
     return {
         type: REQUEST_MY_RATINGS,
@@ -79,3 +83,29 @@ export function requestRandomAlbumsFailed(e: Error) {
         }
     }
 }
+
+export function requestRatingsDistribution() {
+    return {
+        type: REQUEST_RATINGS_DISTRIBUTION,
+        payload: {}
+    }
+}
+
+export function receiveRatingsDistribution(results: any) {
+    return {
+        type: RECEIVE_RATINGS_DISTRIBUTION,
+        payload: {
+            ratingsDistribution: results
+        }
+    }
+}
+
+export function requestRatingsDistributionFailed(e: Error) {
+    return {
+        type: REQUEST_RATINGS_DISTRIBUTION_FAILED,
+        payload: {
+            errorMessage: e.message
+        }
+    }
+}
+

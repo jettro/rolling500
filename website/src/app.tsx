@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import PageHeader from './components/header/header';
-import { Search } from './components/search/search';
+import {Search} from './components/search/search';
 
-import {Container, Divider, List, Responsive, Segment} from 'semantic-ui-react';
+import {Container, Divider, List, Responsive} from 'semantic-ui-react';
 import {SearchCompare} from "./components/search/search-compare";
 import {connect} from "react-redux";
 import {requestMyRatings} from "./components/rating/rating.actions";
 import RatingRater from "./components/rating/rating-rater";
 import Recommendation from "./components/recommendation/recommendation";
-import RecommendationDashboard from "./components/recommendation/recommendation-dashboard";
 import {Dashboard} from "./components/dashboard/dashboard";
+import {Statistics} from "./components/statistics/statistics";
 
 interface IAppProps {
     fetchRatings: any
@@ -26,23 +26,24 @@ class App extends React.Component<IAppProps, null> {
         return (
             <Router>
                 <div>
-                    <PageHeader />
+                    <PageHeader/>
 
-                    <Container style={{ marginTop: '1em' }}>
-                        <Responsive as={Container} style={{marginTop: '4em'}} minWidth={Responsive.onlyMobile.maxWidth} />
+                    <Container style={{marginTop: '1em'}}>
+                        <Responsive as={Container} style={{marginTop: '4em'}}
+                                    minWidth={Responsive.onlyMobile.maxWidth}/>
                         <Route exact path="/" component={Dashboard}/>
-                        <Route exact path="/search" component={Search} />
-                        <Route exact path="/compare" component={SearchCompare} />
-                        <Route exact path="/rate" component={RatingRater} />
-                        <Route exact path="/recommendation" component={Recommendation} />
-                        <Route exact path="/statistics" component={RecommendationDashboard} />
+                        <Route exact path="/search" component={Search}/>
+                        <Route exact path="/compare" component={SearchCompare}/>
+                        <Route exact path="/rate" component={RatingRater}/>
+                        <Route exact path="/recommendation" component={Recommendation}/>
+                        <Route exact path="/statistics" component={Statistics}/>
                     </Container>
 
                     <Container
-                        style={{ margin: '5em 0em 0em', padding: '5em 0em' }}
+                        style={{margin: '5em 0em 0em', padding: '5em 0em'}}
                     >
                         <Container textAlign="center">
-                            <Divider section />
+                            <Divider section/>
                             <List horizontal divided link>
                                 <List.Item as="a" href="#">
                                     Site Map

@@ -31,7 +31,6 @@ class RecommendationDashboard extends React.Component<IRecommendationDashboardPr
     render() {
         return (
             <Container>
-                <Header as='h1'>Statistics</Header>
                 <Header as='h2'>Recommendations</Header>
                 <Statistic.Group widths='four'>
                     <Statistic>
@@ -51,7 +50,7 @@ class RecommendationDashboard extends React.Component<IRecommendationDashboardPr
                         <Statistic.Label>% Recommended of all items</Statistic.Label>
                     </Statistic>
                 </Statistic.Group>
-                <BarChart width={600} height={400} data={this.props.statistics.albumStatistics.reverse().splice(0,10)}
+                <BarChart width={600} height={400} data={this.props.statistics.albumStatistics.reverse()}
                           margin={{top: 15, right: 30, left: 20, bottom: 20}}>
                     <CartesianGrid strokeDasharray="3 3"/>
                     <XAxis dataKey="sequence">

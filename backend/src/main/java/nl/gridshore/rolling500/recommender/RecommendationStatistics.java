@@ -52,4 +52,5 @@ public class RecommendationStatistics {
                 .sorted(Comparator.comparingLong(RecommendedAlbumStatistics::getNumberOfRecommendations))
                 .collect(Collectors.toList());
     }
+
 }

@@ -23,6 +23,7 @@ import org.grouplens.lenskit.knn.user.UserVectorSimilarity;
 import org.grouplens.lenskit.scored.ScoredId;
 import org.grouplens.lenskit.transform.normalize.BaselineSubtractingUserVectorNormalizer;
 import org.grouplens.lenskit.transform.normalize.UserVectorNormalizer;
+import org.grouplens.lenskit.transform.threshold.NoThreshold;
 import org.grouplens.lenskit.transform.threshold.RealThreshold;
 import org.grouplens.lenskit.transform.threshold.Threshold;
 import org.grouplens.lenskit.vectors.similarity.CosineVectorSimilarity;
@@ -159,26 +160,23 @@ public class RecommenderService {
         }).collect(Collectors.toList());
     }
 
-    private LenskitConfiguration configureUserSimilarity(List<Rating> foundRatings, Map<String, Long> userIdMapping) {
+    private LenskitConfiguration configureUserSimilarity(
+            List<Rating> foundRatings, Map<String, Long> userIdMapping) {
         LenskitConfiguration config = new LenskitConfiguration();
-        config.bind(ItemScorer.class)
-                .to(UserUserItemScorer.class);
+        config.bind(ItemScorer.class).to(UserUserItemScorer.class);
 
         config.bind(BaselineScorer.class, ItemScorer.class)
                 .to(UserMeanItemScorer.class);
-
-        config.bind(UserSimilarityThreshold.class, Threshold.class).to(new RealThreshold(THRESHOLD_SIMILARITY));
-
+        config.bind(UserSimilarityThreshold.class, Threshold.class)
+                .to(NoThreshold.class);
         config.bind(UserMeanBaseline.class, ItemScorer.class)
                 .to(ItemMeanRatingItemScorer.class);
-
         config.bind(UserVectorNormalizer.class)
                 .to(BaselineSubtractingUserVectorNormalizer.class);
-
-        config.within(UserVectorSimilarity.class).bind(VectorSimilarity.class).to(CosineVectorSimilarity.class);
+        config.within(UserVectorSimilarity.class).bind(VectorSimilarity.class)
+                .to(CosineVectorSimilarity.class);
 
         List<MutableRating> ratings = obtainRatings(foundRatings, userIdMapping);
-
         config.bind(EventDAO.class).to(EventCollectionDAO.create(ratings));
 
         return config;
