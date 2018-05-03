@@ -30,4 +30,9 @@ public class RecommenderController {
     public List<RecommendedAlbum> obtainRecommendations(@PathVariable String id) {
         return this.recommenderService.recommend(id);
     }
+
+    @GetMapping("/user/{id}/sequence/{sequence}")
+    public int obtainPredictedRating(@PathVariable String id, @PathVariable long sequence) {
+        return this.recommenderService.predictRating(id, sequence);
+    }
 }

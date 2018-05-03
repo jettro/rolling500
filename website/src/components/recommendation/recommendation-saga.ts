@@ -5,10 +5,11 @@ import {API_URL} from "../../api";
 
 import {IHit, IHits} from "../search/search.model";
 import {
+    receivePrediction,
     receiveRecommendationDashboard,
-    receiveRecommendations,
+    receiveRecommendations, REQUEST_PREDICTION,
     REQUEST_RECOMMENDATION_DASHBOARD,
-    REQUEST_RECOMMENDATIONS,
+    REQUEST_RECOMMENDATIONS, requestPredictionFailed,
     requestRecommendationDashboardFailed,
     requestRecommendationsFailed
 } from "./recommendation-actions";
@@ -59,10 +60,25 @@ function* findRecommendationDashboard(action: { type: string, payload: any}) {
     }
 }
 
+function* findPrediction(action: { type: string, payload: any}) {
+    try {
+        const userId = localStorage.getItem('user_id');
+        const sequence:number = action.payload.selectedAlbum.sequence;
+
+        const results = yield call(axios.get, `${API_URL.PREDICT_ALBUM}/user/${userId}/sequence/${sequence}`);
+
+        const prediction:number = results.data;
+
+        yield put(receivePrediction(prediction));
+    } catch (e) {
+        yield put(requestPredictionFailed(e))
+    }
+}
 
 function* recommendationSaga() {
     yield takeEvery(REQUEST_RECOMMENDATIONS, findRecommendedAlbums);
     yield takeEvery(REQUEST_RECOMMENDATION_DASHBOARD, findRecommendationDashboard);
+    yield takeEvery(REQUEST_PREDICTION, findPrediction);
 }
 
 export default recommendationSaga;

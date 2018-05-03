@@ -1,8 +1,12 @@
 import {IAction} from "../../types/action";
 import {IHits} from "../search/search.model";
 import {
+    RECEIVE_PREDICTION,
     RECEIVE_RECOMMENDATION_DASHBOARD,
-    RECEIVE_RECOMMENDATIONS, REQUEST_RECOMMENDATION_DASHBOARD, REQUEST_RECOMMENDATION_DASHBOARD_FAILED,
+    RECEIVE_RECOMMENDATIONS,
+    REQUEST_PREDICTION, REQUEST_PREDICTION_FAILED,
+    REQUEST_RECOMMENDATION_DASHBOARD,
+    REQUEST_RECOMMENDATION_DASHBOARD_FAILED,
     REQUEST_RECOMMENDATIONS,
     REQUEST_RECOMMENDATIONS_FAILED
 } from "./recommendation-actions";
@@ -13,6 +17,7 @@ class IState {
     errorMessage: string;
     albums: IHits;
     statistics: RecommendationStatistics;
+    prediction: number;
 }
 
 const initialState: IState = {
@@ -20,6 +25,7 @@ const initialState: IState = {
     errorMessage: null,
     albums: new IHits(),
     statistics: new RecommendationStatistics(),
+    prediction: 0,
 };
 
 function recommendation(state: IState = initialState, action: IAction) {
@@ -51,8 +57,24 @@ function recommendation(state: IState = initialState, action: IAction) {
             });
         case REQUEST_RECOMMENDATION_DASHBOARD_FAILED:
             return Object.assign({}, state, {
+                isFetching: false,
+                errorMessage: action.payload.errorMessage,
+            });
+        case REQUEST_PREDICTION:
+            return Object.assign({}, state, {
                 isFetching: true,
                 errorMessage: null,
+            });
+        case RECEIVE_PREDICTION:
+            return Object.assign({}, state, {
+                isFetching: false,
+                prediction: action.payload.prediction,
+            });
+        case REQUEST_PREDICTION_FAILED:
+            return Object.assign({}, state, {
+                isFetching: false,
+                errorMessage: action.payload.errorMessage,
+                prediction: 0,
             });
         default:
             return state;

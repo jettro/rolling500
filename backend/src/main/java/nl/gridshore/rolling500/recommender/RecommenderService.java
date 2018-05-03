@@ -7,6 +7,7 @@ import nl.gridshore.rolling500.ratings.RatingsService;
 import nl.gridshore.rolling500.searchstats.SearchStatsService;
 import org.grouplens.lenskit.ItemRecommender;
 import org.grouplens.lenskit.ItemScorer;
+import org.grouplens.lenskit.RatingPredictor;
 import org.grouplens.lenskit.RecommenderBuildException;
 import org.grouplens.lenskit.baseline.BaselineScorer;
 import org.grouplens.lenskit.baseline.ItemMeanRatingItemScorer;
@@ -94,6 +95,26 @@ public class RecommenderService {
         });
 
         return statistics;
+    }
+
+    public int predictRating(String userId, long sequenceId) {
+        LenskitRecommender recommender;
+        Map<String, Long> userIdMapping = new HashMap<>();
+        try {
+            List<Rating> foundRatings = ratingsService.listAllRatings();
+            LenskitConfiguration lenskitConfiguration = configureUserSimilarity(foundRatings, userIdMapping);
+            recommender = LenskitRecommender.build(lenskitConfiguration);
+        } catch (RecommenderBuildException e) {
+            logger.error("Error when constructing a recommender.", e);
+            throw new RecommendationException(e.getMessage());
+        }
+        RatingPredictor ratingPredictor = recommender.getRatingPredictor();
+
+
+        int predict = (int) ratingPredictor.predict(userIdMapping.get(userId), sequenceId);
+        logger.info("Predicted a rating of {} for album with sequence {}", predict, sequenceId);
+
+        return predict;
     }
 
 

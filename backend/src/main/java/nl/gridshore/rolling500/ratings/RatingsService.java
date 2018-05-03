@@ -7,6 +7,7 @@ import eu.luminis.elastic.document.SingleClusterDocumentService;
 import eu.luminis.elastic.search.SearchByTemplateRequest;
 import eu.luminis.elastic.search.SingleClusterSearchService;
 import eu.luminis.elastic.search.response.HitsResponse;
+import org.grouplens.lenskit.core.LenskitRecommender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
