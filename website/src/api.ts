@@ -11,7 +11,8 @@ export const API_URL = {
     MY_RATINGS: 'rating',
     RATINGS_DIST: 'rating/distribution',
     RANDOM_ALBUMS: 'albums/random',
-    RECOMMEND_ALBUMS: 'recommender/user'
+    RECOMMEND_ALBUMS: 'recommender/user',
+    PREDICT_ALBUM: 'recommender',
 };
 
 export const IMG_URL = `${backendHost}/images/`;

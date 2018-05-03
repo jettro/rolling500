@@ -23,7 +23,6 @@ interface IRecommendationState {
 
 class Recommendation extends React.Component<IRecommendationProps, IRecommendationState> {
 
-
     constructor(props: IRecommendationProps) {
         super(props);
         this.state = {

@@ -28,7 +28,7 @@ class Prediction extends React.Component<IPredictionProps, IPredictionState> {
             <Container>
                 <Divider horizontal>Our Prediction</Divider>
                 <p>Using yours and others ratings we think you would rate this album as:</p>
-                <Rating icon='star' rating={this.props.prediction} maxRating={5} disabled/>
+                <Rating icon='star' rating={this.props.prediction+1} maxRating={5} disabled/>
             </Container>
         );
     }
